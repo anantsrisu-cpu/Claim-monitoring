@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>อัปเดตข้อมูลเคลม</title>
+<meta name="robots" content="noindex">
+<title>อัปเดตข้อมูลเคลม (สำรอง)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,16 +13,18 @@
   --tx:#fff;--tx2:#c3c2b7;--tx3:#8a8a80;--blue:#3987e5;--good:#0ca30c;--warn:#fab219;--bad:#d03b3b}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--tx);font-family:"Noto Sans Thai","IBM Plex Sans",Tahoma,sans-serif;
-  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;padding:34px 20px 60px}
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;padding:34px 16px 60px}
 .wrap{max-width:640px;margin:0 auto}
 h1{font-size:24px;font-weight:700;margin-bottom:6px}
-.lead{color:var(--tx2);font-size:14.5px;margin-bottom:24px}
+.lead{color:var(--tx2);font-size:14.5px;margin-bottom:18px}
+.note{background:rgba(57,135,229,.10);border:1px solid rgba(57,135,229,.4);color:#b9d6f7;
+  border-radius:12px;padding:12px 16px;font-size:13.5px;margin-bottom:18px}
 .card{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:14px}
 .card h2{font-size:16px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:10px}
 .card h2 .n{width:26px;height:26px;border-radius:8px;background:rgba(57,135,229,.18);color:#9cc6f5;
   font-size:14px;display:grid;place-items:center;flex:none}
 .card p{color:var(--tx2);font-size:14px;margin-bottom:14px}
-input[type=password],input[type=text]{width:100%;background:var(--s2);border:1px solid var(--line);
+input[type=password]{width:100%;background:var(--s2);border:1px solid var(--line);
   border-radius:10px;padding:11px 13px;font:inherit;font-size:15px;color:var(--tx)}
 input:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
 .btn{background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px 17px;
@@ -41,20 +44,20 @@ input:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--
 .hidden{display:none!important}
 ol{margin:0 0 0 20px;color:var(--tx2);font-size:14px}
 ol li{margin-bottom:7px}
-code{background:var(--s2);border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:13.5px}
+code{background:var(--s2);border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:13.5px;word-break:break-all}
 .foot{color:var(--tx3);font-size:12.5px;text-align:center;margin-top:26px}
-a{color:#9cc6f5}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>อัปเดตข้อมูลเคลม</h1>
-  <p class="lead">หน้านี้สำหรับเจ้าของไฟล์เท่านั้น ใช้แปลงไฟล์ Excel เป็นไฟล์ข้อมูลที่เข้ารหัสแล้ว
-     เพื่อนำไปวางบนเว็บ</p>
+  <h1>อัปเดตข้อมูลเคลม (ทางสำรอง)</h1>
+  <p class="lead">หน้านี้สำหรับเจ้าของไฟล์ ใช้แปลงไฟล์ Excel เป็นไฟล์ข้อมูลที่เข้ารหัสแล้วเพื่อนำไปวางบนเว็บเอง</p>
+  <div class="note">ปกติไม่ต้องใช้หน้านี้ — ถ้าตั้ง <b>ตัวอัปเดตอัตโนมัติ</b> ไว้แล้ว แค่บันทึก Excel ใน OneDrive
+    เว็บจะอัปเดตเองภายในไม่กี่นาที ใช้หน้านี้เฉพาะตอนเครื่องที่ตั้งตัวอัปเดตไว้ปิดอยู่หรือมีปัญหา</div>
 
   <div class="card">
     <h2><span class="n">1</span>ใส่รหัสผ่านของหน้าจอ</h2>
-    <p>ต้องเป็นรหัสเดียวกับที่ทีมใช้เปิดดูหน้าจอ ถ้าใส่รหัสใหม่ ทุกคนต้องเปลี่ยนไปใช้รหัสใหม่ด้วย</p>
+    <p>ต้องเป็นรหัสเดียวกับที่ทีมใช้เปิดดูหน้าจอ (และตรงกับที่ตั้งในตัวอัปเดตอัตโนมัติ)</p>
     <input type="password" id="pass" placeholder="รหัสผ่าน" autocomplete="off">
   </div>
 
@@ -75,7 +78,7 @@ a{color:#9cc6f5}
       <li>เปิดหน้า repository ของคุณบน github.com</li>
       <li>กด <b>Add file → Upload files</b></li>
       <li>ลากไฟล์ <code>data.json</code> ที่เพิ่งดาวน์โหลดมาวาง (ทับไฟล์เดิมได้เลย)</li>
-      <li>กด <b>Commit changes</b> แล้วรอราว 30 วินาที หน้าจอจะขึ้นข้อมูลใหม่</li>
+      <li>กด <b>Commit changes</b> แล้วรอราว 1 นาที หน้าจอทุกเครื่องจะขึ้นข้อมูลใหม่เอง</li>
     </ol>
   </div>
 
@@ -95,6 +98,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
 <script>
 const $ = s => document.querySelector(s);
 const CLOSED = ["เคลมแล้ว","ปิดเคส","ยกเลิก"];
+const ITER = 200000;
 let PAYLOAD = null;
 
 const norm = v => v==null ? null : (String(v).replace(/\s+/g," ").trim() || null);
@@ -103,105 +107,63 @@ const fmtN = n => n==null ? "—" : n.toLocaleString("th-TH");
 const fmtB = n => n==null ? "—" : n.toLocaleString("th-TH",{minimumFractionDigits:2,maximumFractionDigits:2});
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-function toISO(v){
-  if(v==null||v==="") return null;
-  if(v instanceof Date) return isNaN(v)?null:new Date(Date.UTC(v.getFullYear(),v.getMonth(),v.getDate())).toISOString().slice(0,10);
-  if(typeof v==="number"){ const d=XLSX.SSF.parse_date_code(v); return d?new Date(Date.UTC(d.y,d.m-1,d.d)).toISOString().slice(0,10):null; }
-  const s=String(v).trim();
-  let m=s.match(/^(\d{4})-(\d{2})-(\d{2})/); if(m) return s.slice(0,10);
-  m=s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})$/);
-  if(m){ let y=+m[3]; if(y<100) y+=2500; if(y>2400) y-=543; if(y<1900) y+=2000;
-    return new Date(Date.UTC(y,+m[2]-1,+m[1])).toISOString().slice(0,10); }
-  return null;
-}
-function colPicker(headers){
-  const H = headers.map(h => norm(h)||"");
-  return function(...aliases){
-    for(const a of aliases){ const i=H.findIndex(h=>h===a); if(i>=0) return i; }
-    for(const a of aliases){ const i=H.findIndex(h=>h.replace(/\s/g,"").includes(a.replace(/\s/g,""))); if(i>=0) return i; }
-    return -1;
-  };
-}
-function parseBook(buf){
+/* ตรวจไฟล์คร่าว ๆ ก่อนเข้ารหัส (หน้าจอจริงอ่านไฟล์นี้ด้วยวิธีเดียวกัน) */
+function summarize(buf){
   const wb = XLSX.read(buf,{type:"array",cellDates:true});
   const sn = wb.SheetNames.find(n=>/บันทึกการเคลม/.test(n));
   if(!sn) throw new Error('ไม่พบชีต "บันทึกการเคลม" ในไฟล์นี้');
-  const aoa = XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,raw:true,cellDates:true,defval:null});
+  const aoa = XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,raw:true,defval:null});
   const hi = aoa.findIndex(r=>r&&r.some(c=>/หมายเลขเคส/.test(String(c||""))));
   if(hi<0) throw new Error("ไม่พบหัวตาราง (คอลัมน์ หมายเลขเคส)");
-  const P = colPicker((aoa[hi]||[]).map(h=>h==null?"":String(h)));
-  const C = {date:P("วันที่แจ้งเคลม"),caseNo:P("หมายเลขเคส"),lot:P("เลข LOT สินค้า","เลข LOT"),
-    coa:P("เลขที่ COA"),dept:P("ฝ่าย"),po:P("ใบสั่งซื้อ PO เลขที่","ใบสั่งซื้อ"),sku:P("SKU"),
-    desc:P("Description","Desciption","คำอธิบายสินค้า"),qty:P("จำนวน"),unit:P("หน่วย"),
-    price:P("ราคา/หน่วย (บาท)","ราคา/หน่วย"),value:P("มูลค่า (บาท) Ex.VAT","มูลค่า (บาท)","มูลค่า"),
-    type:P("ประเภทเคลม"),cause:P("สาเหตุ/อาการ"),vendor:P("ช่องทางซื้อ/ผู้ขาย","ผู้ขาย"),
-    owner:P("ผู้รับผิดชอบ","ผู้รับผิดชอบปัจจุบัน"),status:P("สถานะเคลม"),due:P("กำหนดปิดเคส"),
-    done:P("วันที่ ซัพฯเสร็จ","วันที่ซัพฯเสร็จ"),note:P("หมายเหตุ")};
-  const master = {};
-  const mn = wb.SheetNames.find(n=>/SKU\s*Master/i.test(n));
-  if(mn) XLSX.utils.sheet_to_json(wb.Sheets[mn],{defval:null}).forEach(r=>{
-    const k=norm(r["SKU"]); if(!k||master[k]) return;
-    master[k]={desc:norm(r["คำอธิบายสินค้า"]),unit:norm(r["หน่วย"]),price:numOf(r["ราคา/หน่วย (บาท)"])};
-  });
-  const rows=[];
+  const H = (aoa[hi]||[]).map(h=>norm(h)||"");
+  const ci = re => H.findIndex(h=>re.test(h));
+  const cCase = ci(/หมายเลขเคส/), cStat = ci(/สถานะเคลม/), cVal = ci(/มูลค่า/);
+  let n=0, open=0, val=0;
   for(let i=hi+1;i<aoa.length;i++){
-    const raw=aoa[i]; if(!raw) continue;
-    const g=k=>C[k]<0?null:raw[C[k]];
-    const caseNo=norm(g("caseNo")); if(!caseNo) continue;
-    const sku=norm(g("sku")); const m=(sku&&master[sku])||{};
-    const qty=numOf(g("qty"));
-    const price=numOf(g("price")) ?? m.price ?? null;
-    let value=numOf(g("value"));
-    if(value==null&&qty!=null&&price!=null) value=Math.round(qty*price*100)/100;
-    const o={date:toISO(g("date")),done:toISO(g("done")),caseNo,
-      status:norm(g("status"))||"ไม่ระบุสถานะ",qty,price,value,sku,
-      desc:norm(g("desc"))||m.desc||null,unit:norm(g("unit"))||m.unit||null,
-      lot:norm(g("lot")),coa:norm(g("coa")),dept:norm(g("dept")),po:norm(g("po")),
-      type:norm(g("type")),cause:norm(g("cause")),vendor:norm(g("vendor")),
-      owner:norm(g("owner")),due:norm(g("due")),
-      note:g("note")==null?null:String(g("note")).trim()||null};
-    Object.keys(o).forEach(k=>{ if(o[k]===null||o[k]===undefined) delete o[k]; });
-    rows.push(o);
+    const r = aoa[i]; if(!r || !norm(r[cCase])) continue;
+    n++;
+    if(!CLOSED.includes(norm(r[cStat])||"")) open++;
+    val += numOf(cVal<0?null:r[cVal]) || 0;
   }
-  if(!rows.length) throw new Error("อ่านไฟล์ได้ แต่ไม่พบข้อมูลเคลม");
-  return rows;
+  if(!n) throw new Error("อ่านไฟล์ได้ แต่ไม่พบข้อมูลเคลม");
+  return {n, open, val};
 }
 
-const b64e = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
-async function encrypt(obj, pass){
+const b64e = u8 => { let s=""; const b=new Uint8Array(u8); for(let i=0;i<b.length;i+=0x8000) s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000)); return btoa(s); };
+async function encrypt(bytes, pass, meta){
   const salt = crypto.getRandomValues(new Uint8Array(16));
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const km = await crypto.subtle.importKey("raw",new TextEncoder().encode(pass),"PBKDF2",false,["deriveKey"]);
-  const key = await crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:200000,hash:"SHA-256"},
-    km,{name:"AES-GCM",length:256},false,["encrypt"]);
-  const ct = await crypto.subtle.encrypt({name:"AES-GCM",iv},key,
-    new TextEncoder().encode(JSON.stringify(obj)));
-  return {v:1,salt:b64e(salt),iv:b64e(iv),ct:b64e(ct)};
+  const iv = crypto.getRandomValues(new Uint8Array(16));
+  const km = await crypto.subtle.importKey("raw",new TextEncoder().encode(pass),"PBKDF2",false,["deriveBits"]);
+  const bits = new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",salt,iterations:ITER,hash:"SHA-256"},km,512));
+  const ek = await crypto.subtle.importKey("raw",bits.slice(0,32),{name:"AES-CBC"},false,["encrypt"]);
+  const mk = await crypto.subtle.importKey("raw",bits.slice(32),{name:"HMAC",hash:"SHA-256"},false,["sign"]);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({name:"AES-CBC",iv},ek,bytes));
+  const signed = new Uint8Array(iv.length+ct.length); signed.set(iv); signed.set(ct,iv.length);
+  const mac = await crypto.subtle.sign("HMAC",mk,signed);
+  return Object.assign({v:2}, meta, {kdf:"PBKDF2-SHA256",iter:ITER,salt:b64e(salt),iv:b64e(iv),ct:b64e(ct),mac:b64e(mac)});
 }
 
 function msg(kind, html){ const m=$("#msg"); m.className="msg "+kind; m.innerHTML=html; }
 
 async function take(f){
-  const pass = $("#pass").value.trim();
-  if(!pass){ msg("err","กรุณาใส่รหัสผ่านในขั้นตอนที่ 1 ก่อน"); $("#pass").focus(); return; }
+  const pass = $("#pass").value;
+  if(!pass.trim()){ msg("err","กรุณาใส่รหัสผ่านในขั้นตอนที่ 1 ก่อน"); $("#pass").focus(); return; }
   msg("wait","กำลังอ่านไฟล์ …");
-  let rows;
-  try{ rows = parseBook(await f.arrayBuffer()); }
+  $("#save").disabled = true; PAYLOAD = null;
+  let bytes, s;
+  try{ bytes = new Uint8Array(await f.arrayBuffer()); s = summarize(bytes); }
   catch(err){ msg("err","อ่านไฟล์ไม่สำเร็จ — "+esc(err.message)); return; }
-  const data = {src:f.name, savedAt:new Date(f.lastModified).toISOString(),
-                updatedAt:new Date().toISOString(), rows};
-  try{ PAYLOAD = await encrypt(data, pass); }
-  catch(err){ msg("err","เข้ารหัสไม่สำเร็จ — "+esc(err.message)); return; }
-  const open = rows.filter(r=>!CLOSED.includes(r.status)).length;
-  const val = rows.reduce((s,r)=>s+(r.value||0),0);
+  try{
+    const toZ = d => d.toISOString().replace(/\.\d+Z$/,"Z");
+    PAYLOAD = await encrypt(bytes, pass, {name:f.name, savedAt:toZ(new Date(f.lastModified)), publishedAt:toZ(new Date())});
+  }catch(err){ msg("err","เข้ารหัสไม่สำเร็จ — "+esc(err.message)); return; }
   msg("ok", `อ่านไฟล์ <b>${esc(f.name)}</b> เรียบร้อย<br>`+
-    `พบ <b>${fmtN(rows.length)}</b> เคส · เคสค้าง <b>${fmtN(open)}</b> เคส · `+
-    `มูลค่ารวม <b>${fmtB(val)}</b> บาท<br>ไปขั้นตอนที่ 3 เพื่อดาวน์โหลดไฟล์ได้เลย`);
+    `พบ <b>${fmtN(s.n)}</b> เคส · เคสค้าง <b>${fmtN(s.open)}</b> เคส<br>ไปขั้นตอนที่ 3 เพื่อดาวน์โหลดไฟล์ได้เลย`);
   $("#save").disabled = false;
 }
 
 $("#pick").onclick = () => $("#file").click();
-$("#file").onchange = e => { if(e.target.files[0]) take(e.target.files[0]); };
+$("#file").onchange = e => { if(e.target.files[0]) take(e.target.files[0]); e.target.value=""; };
 const drop = $("#drop");
 ["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over");}));
 ["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over");}));
