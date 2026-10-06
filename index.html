@@ -17,9 +17,36 @@
   --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-7:#9085e9;
   --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
   --grid:#2c2d2a;
+  --cat-1:#3987e5; --cat-2:#d95926; --cat-3:#199e70; --cat-4:#c98500;
+  --cat-5:#d55181; --cat-6:#008300; --cat-7:#9085e9; --cat-8:#e66767; --cat-other:#6f6e67;
+  --wash:rgba(57,135,229,.12); --wash-line:rgba(57,135,229,.35); --on-wash:#cfe2fa;
+  --bad-text:#f08b8b; --err-bg:rgba(208,59,59,.12); --err-line:rgba(208,59,59,.4); --err-text:#f0a0a0;
+  --warn-text:#fab219; --warn-bg:rgba(250,178,25,.13); --warn-line:rgba(250,178,25,.32);
+  --mid-text:#ec835a; --mid-bg:rgba(236,131,90,.15); --bad-bg:rgba(208,59,59,.17); --ok-bg:rgba(195,194,183,.10);
+  --tip-bg:#000; --tip-line:#3d3e39; --shadow:rgba(0,0,0,.55); --hover-line:#454640;
+  --gate-glow:#16202b; --scrim:rgba(0,0,0,.55);
   --r:14px;
   --fs-hero:clamp(26px,2.4vw,42px);
 }
+
+/* ---------- ธีมสว่าง (พื้นขาว) ---------- */
+:root[data-theme="light"]{
+  color-scheme: light;
+  --bg:#f1f1ee; --surface-1:#ffffff; --surface-2:#f4f3ef; --surface-3:#e8e7e1;
+  --line:#dcdbd4; --grid:#ebeae4;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#706e68;
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-7:#4a3aa7;
+  --cat-1:#2a78d6; --cat-2:#eb6834; --cat-3:#1baf7a; --cat-4:#eda100;
+  --cat-5:#e87ba4; --cat-6:#008300; --cat-7:#4a3aa7; --cat-8:#e34948; --cat-other:#c4c2b9;
+  --wash:rgba(42,120,214,.08); --wash-line:rgba(42,120,214,.35); --on-wash:#1c5cab;
+  --bad-text:#b3261e; --err-bg:#fdeceb; --err-line:#f1b5b0; --err-text:#9b1c15;
+  --warn-text:#875800; --warn-bg:#fff4dc; --warn-line:#f0c46a;
+  --mid-text:#a8461b; --mid-bg:rgba(236,131,90,.16); --bad-bg:rgba(208,59,59,.11); --ok-bg:#f0efea;
+  --tip-bg:#ffffff; --tip-line:#d6d5ce; --shadow:rgba(30,30,20,.16); --hover-line:#c6c5bd;
+  --gate-glow:#dbe7f6; --scrim:rgba(20,20,20,.35);
+}
+:root[data-theme="light"] .kpi,:root[data-theme="light"] .panel,:root[data-theme="light"] .drillhead{
+  box-shadow:0 1px 2px rgba(30,30,20,.05)}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
@@ -40,17 +67,17 @@ header.top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:4px 2
 .tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .btn{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;
   padding:7px 13px;cursor:pointer;font-size:13.5px;font-weight:500;transition:.15s;white-space:nowrap}
-.btn:hover{background:var(--surface-3);border-color:#454640}
+.btn:hover{background:var(--surface-3);border-color:var(--hover-line)}
 .btn.primary{background:var(--series-1);border-color:var(--series-1);color:#fff}
-.btn.primary:hover{background:#2f76cf}
+.btn.primary:hover{filter:brightness(1.08)}
 .btn[aria-pressed="true"]{background:var(--series-1);border-color:var(--series-1);color:#fff}
 .live{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--text-secondary);
   background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);flex:none;transition:transform .3s}
 .dot.on{background:var(--good);box-shadow:0 0 0 3px rgba(12,163,12,.18)}
 .dot.warn{background:var(--warning)}
-.live.stale{border-color:rgba(250,178,25,.45);color:var(--warning)}
-.live.old{border-color:rgba(208,59,59,.45);color:#f08b8b}
+.live.stale{border-color:var(--warn-line);color:var(--warn-text)}
+.live.old{border-color:var(--err-line);color:var(--bad-text)}
 
 /* ---------- tabs / filters ---------- */
 .bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
@@ -63,13 +90,13 @@ header.top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:4px 2
 .tab[aria-selected="true"] .cnt{color:var(--text-secondary)}
 select{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:7px 11px;
   font:inherit;font-size:13.5px;color:var(--text-primary);max-width:290px;cursor:pointer}
-select.on{border-color:var(--series-1);background:rgba(57,135,229,.14);color:#cfe2fa;font-weight:600}
+select.on{border-color:var(--series-1);background:var(--wash);color:var(--on-wash);font-weight:600}
 
 /* ---------- active-filter bar ---------- */
 #filterBar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:-4px 0 13px;
-  background:rgba(57,135,229,.09);border:1px solid rgba(57,135,229,.3);border-radius:11px;
+  background:var(--wash);border:1px solid var(--wash-line);border-radius:11px;
   padding:9px 13px}
-#filterBar .lead{font-size:13px;color:#cfe2fa;font-weight:600}
+#filterBar .lead{font-size:13px;color:var(--on-wash);font-weight:600}
 .fchip{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);
   border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 12px;font-size:12.5px;
   max-width:340px}
@@ -86,13 +113,13 @@ select.on{border-color:var(--series-1);background:rgba(57,135,229,.14);color:#cf
 .bigstate h3{font-size:19px;font-weight:700;margin:0 0 8px}
 .bigstate p{font-size:14.5px;color:var(--text-secondary);margin:0 auto 20px;max-width:620px;line-height:1.6}
 .bigstate .btn{font-size:14.5px;padding:9px 18px}
-.bigstate.err{border-color:rgba(208,59,59,.45);background:rgba(208,59,59,.08)}
-.bigstate.err h3{color:#f08b8b}
+.bigstate.err{border-color:var(--err-line);background:var(--err-bg)}
+.bigstate.err h3{color:var(--bad-text)}
 .bigstate code{background:var(--surface-2);border:1px solid var(--line);border-radius:6px;
   padding:2px 7px;font-size:12.5px}
 
 /* ---------- kpi ---------- */
-.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:14px}
+.kpis{display:grid;grid-template-columns:repeat(var(--kc,6),minmax(0,1fr));gap:12px;margin-bottom:14px}
 @media(max-width:1400px){.kpis{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}}
 .kpi{background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px 15px;
@@ -144,6 +171,39 @@ select.on{border-color:var(--series-1);background:rgba(57,135,229,.14);color:#cf
 .mo .mv{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
 .mo .ml{font-size:11px;color:var(--text-muted);white-space:nowrap}
 
+
+/* ---------- chart grid (จัดวางตามการตั้งค่า) ---------- */
+.cgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.span-2{grid-column:span 2}.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-6{grid-column:span 6}
+@media(max-width:1240px){.cgrid>.panel{grid-column:span 6}}
+.panel .cbody{flex:1;min-height:0}
+.panel .cwarn{font-size:12.5px;color:var(--warn-text);background:var(--warn-bg);border:1px solid var(--warn-line);
+  border-radius:9px;padding:10px 12px}
+
+/* ---------- donut / pie ---------- */
+.pie{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.pie svg{flex:none;width:224px;height:224px;overflow:visible}
+.pie .slice{cursor:default;transition:opacity .15s,transform .15s;transform-origin:100px 100px}
+.pie .slice.clickable{cursor:pointer}
+.pie svg:hover .slice{opacity:.55}
+.pie svg .slice:hover{opacity:1;transform:scale(1.035)}
+.pie .ctr{font-family:"IBM Plex Sans","Noto Sans Thai",sans-serif;font-weight:700;fill:var(--text-primary)}
+.pie .ctr2{font-size:11px;fill:var(--text-muted)}
+.plegend{flex:1;min-width:220px;display:flex;flex-direction:column;gap:3px}
+.pl{display:grid;grid-template-columns:12px minmax(0,1fr) auto auto;align-items:center;gap:9px;
+  padding:5px 6px;border-radius:7px;font-size:13px;transition:background .12s}
+.pl:hover{background:var(--surface-2)}
+.pl.clickable{cursor:pointer}
+.pl .sw{width:12px;height:12px;border-radius:3px}
+.pl .nm{color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl.clickable:hover .nm{color:var(--text-primary)}
+.pl .ct{font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.pl .pc{color:var(--text-muted);font-size:12px;font-variant-numeric:tabular-nums;min-width:38px;text-align:right}
+
+/* ---------- theme toggle ---------- */
+#themeBtn{display:inline-flex;align-items:center;gap:7px}
+#themeBtn svg{width:15px;height:15px}
+
 /* ---------- table ---------- */
 .tblwrap{overflow:auto;border-radius:10px;border:1px solid var(--line);flex:1}
 table{border-collapse:collapse;width:100%;font-size:13px}
@@ -159,16 +219,16 @@ td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 td.desc{color:var(--text-secondary);max-width:340px}
 td.cause{color:var(--text-secondary);max-width:300px}
 .chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;
-  font-size:12px;font-weight:600;white-space:nowrap;border:1px solid transparent}
+  font-size:12px;font-weight:600;white-space:nowrap;border:1px solid transparent;color:var(--text-primary)}
 .chip .ic{font-size:11px;line-height:1}
 .age{display:inline-block;padding:3px 9px;border-radius:7px;font-size:12.5px;font-weight:700;
   font-variant-numeric:tabular-nums}
-.age.ok{background:rgba(195,194,183,.10);color:var(--text-secondary)}
-.age.mid{background:rgba(236,131,90,.15);color:var(--serious)}
-.age.bad{background:rgba(208,59,59,.17);color:#f08b8b}
-.miss{color:var(--warning);font-weight:600}
-.tagmiss{display:inline-block;background:rgba(250,178,25,.13);color:var(--warning);
-  border:1px solid rgba(250,178,25,.32);border-radius:6px;padding:2px 8px;font-size:11.5px;
+.age.ok{background:var(--ok-bg);color:var(--text-secondary)}
+.age.mid{background:var(--mid-bg);color:var(--mid-text)}
+.age.bad{background:var(--bad-bg);color:var(--bad-text)}
+.miss{color:var(--warn-text);font-weight:600}
+.tagmiss{display:inline-block;background:var(--warn-bg);color:var(--warn-text);
+  border:1px solid var(--warn-line);border-radius:6px;padding:2px 8px;font-size:11.5px;
   font-weight:600;margin:2px 4px 2px 0}
 
 /* ---------- legend ---------- */
@@ -188,7 +248,7 @@ td.cause{color:var(--text-secondary);max-width:300px}
   font-size:11.5px;color:var(--text-secondary)}
 
 /* ---------- case drawer ---------- */
-#scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;opacity:0;pointer-events:none;
+#scrim{position:fixed;inset:0;background:var(--scrim);z-index:60;opacity:0;pointer-events:none;
   transition:opacity .18s}
 #scrim.on{opacity:1;pointer-events:auto}
 #drawer{position:fixed;top:0;inset-inline-end:0;height:100%;width:min(560px,94vw);z-index:61;
@@ -204,34 +264,24 @@ td.cause{color:var(--text-secondary);max-width:300px}
   padding:13px 15px;font-size:13px;white-space:pre-wrap;line-height:1.6;color:var(--text-secondary)}
 .notebox b{color:var(--text-primary);display:block;margin-bottom:6px;font-size:12.5px}
 
-/* ---------- start screen ---------- */
-.start{max-width:640px;margin:8vh auto;background:var(--surface-1);border:1px solid var(--line);
-  border-radius:18px;padding:34px 36px 32px;text-align:center}
-.start h2{margin:0 0 8px;font-size:21px}
-.start p{color:var(--text-secondary);font-size:14px;margin:0 0 6px}
-.start .drop{margin:22px 0 16px;border:1.5px dashed #3d3e39;border-radius:13px;padding:26px 18px;
-  color:var(--text-muted);font-size:13.5px;transition:.15s}
-.start .drop.over{border-color:var(--series-1);background:rgba(57,135,229,.07);color:var(--text-secondary)}
-.start ol{text-align:start;color:var(--text-secondary);font-size:13.5px;margin:16px 0 0;padding-inline-start:20px}
-.start ol li{margin-bottom:5px}
-.err{background:rgba(208,59,59,.12);border:1px solid rgba(208,59,59,.4);color:#f0a0a0;
+.err{background:var(--err-bg);border:1px solid var(--err-line);color:var(--err-text);
   border-radius:9px;padding:11px 14px;font-size:13px;margin-top:16px;text-align:start;white-space:pre-wrap}
 .hidden{display:none!important}
 
 /* ---------- tooltip ---------- */
-#tip{position:fixed;z-index:99;pointer-events:none;background:#000;border:1px solid #3d3e39;
+#tip{position:fixed;z-index:99;pointer-events:none;background:var(--tip-bg);border:1px solid var(--tip-line);color:var(--text-primary);
   border-radius:9px;padding:9px 12px;font-size:12.5px;line-height:1.5;max-width:330px;
-  box-shadow:0 8px 26px rgba(0,0,0,.6);opacity:0;transition:opacity .1s}
+  box-shadow:0 8px 26px var(--shadow);opacity:0;transition:opacity .1s}
 #tip b{font-weight:600}
 #tip .k{color:var(--text-muted)}
 
 /* ---------- passcode gate ---------- */
 #gate{position:fixed;inset:0;z-index:90;display:grid;place-items:center;
-  background:radial-gradient(1200px 700px at 50% -10%,#16202b 0%,var(--bg) 62%);padding:24px}
+  background:radial-gradient(1200px 700px at 50% -10%,var(--gate-glow) 0%,var(--bg) 62%);padding:24px}
 #gate.hidden{display:none}
 .gcard{width:min(420px,94vw);background:var(--surface-1);border:1px solid var(--line);
   border-radius:20px;padding:36px 34px 28px;text-align:center;
-  box-shadow:0 26px 80px rgba(0,0,0,.55)}
+  box-shadow:0 26px 80px var(--shadow)}
 .glogo{font-size:38px;line-height:1;margin-bottom:14px}
 .gcard h1{font-size:22px;font-weight:700;margin:0 0 8px}
 .gsub{font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0 0 22px}
@@ -244,12 +294,12 @@ td.cause{color:var(--text-secondary);max-width:300px}
   color:var(--text-secondary);cursor:pointer;user-select:none}
 .grem input{accent-color:var(--series-1);width:15px;height:15px}
 #gform .btn{padding:11px 16px;font-size:15px}
-#gerr{margin-top:14px;background:rgba(208,59,59,.12);border:1px solid rgba(208,59,59,.4);
-  color:#f0a0a0;border-radius:10px;padding:11px 14px;font-size:13.5px;line-height:1.6;text-align:left}
-#gerr.info{background:rgba(57,135,229,.12);border-color:rgba(57,135,229,.45);color:#b9d6f7}
-#gerr b{color:#fff}
+#gerr{margin-top:14px;background:var(--err-bg);border:1px solid var(--err-line);
+  color:var(--err-text);border-radius:10px;padding:11px 14px;font-size:13.5px;line-height:1.6;text-align:left}
+#gerr.info{background:var(--wash);border-color:var(--wash-line);color:var(--on-wash)}
+#gerr b{color:var(--text-primary)}
 .gfoot{font-size:12px;color:var(--text-muted);margin:20px 0 0}
-#liveWrap.warn{border-color:rgba(250,178,25,.45);color:var(--warning)}
+#liveWrap.warn{border-color:var(--warn-line);color:var(--warn-text)}
 footer{color:var(--text-muted);font-size:11.5px;text-align:center;padding:16px 0 4px}
 </style>
 </head>
@@ -280,7 +330,7 @@ footer{color:var(--text-muted);font-size:11.5px;text-align:center;padding:16px 0
 <div class="wrap hidden" id="app">
   <header class="top">
     <div class="brand">
-      <h1>ติดตามการเคลมสินค้า</h1>
+      <h1 id="appTitle">ติดตามการเคลมสินค้า</h1>
       <span class="sub" id="srcName"></span>
     </div>
     <div class="spacer"></div>
@@ -289,6 +339,7 @@ footer{color:var(--text-muted);font-size:11.5px;text-align:center;padding:16px 0
       <span class="live" id="liveWrap" title="หน้าจอนี้เช็คข้อมูลใหม่เองทุก 1 นาที"><span class="dot" id="liveDot"></span><span id="liveTxt">—</span></span>
       <button class="btn" id="rotate" aria-pressed="false" title="สลับแท็บอัตโนมัติทุก 20 วินาที">สลับหน้าอัตโนมัติ</button>
       <button class="btn" id="refresh" title="กด R บนคีย์บอร์ดก็ได้">โหลดข้อมูลล่าสุด</button>
+      <button class="btn" id="themeBtn" title="สลับพื้นหลัง ดำ / ขาว (กด T)"></button>
       <button class="btn" id="full">เต็มจอ</button>
       <button class="btn" id="lock" title="ลืมรหัสบนเครื่องนี้">ล็อกหน้าจอ</button>
     </div>
@@ -305,6 +356,7 @@ footer{color:var(--text-muted);font-size:11.5px;text-align:center;padding:16px 0
     <select id="fPeriod" aria-label="ช่วงเวลา"></select>
     <select id="fVendor" aria-label="ผู้ขาย"></select>
     <select id="fStatus" aria-label="สถานะ"></select>
+    <span id="xFilters" style="display:contents"></span>
   </div>
 
   <!-- drill-down header (shown only when drilling) -->
@@ -334,47 +386,11 @@ footer{color:var(--text-muted);font-size:11.5px;text-align:center;padding:16px 0
   <!-- ============ MAIN TABS ============ -->
   <div id="mainPanes">
     <div class="hintbar" data-pane="ov">
-      <span class="k">เคล็ดลับ</span> คลิกที่แท่งกราฟใดก็ได้เพื่อเจาะลึก · คลิกที่แถวในตารางเพื่อดูรายละเอียดเคส ·
+      <span class="k">เคล็ดลับ</span> คลิกที่แท่งกราฟหรือชิ้นกราฟวงกลมเพื่อเจาะลึก · คลิกที่แถวในตารางเพื่อดูรายละเอียดเคส ·
       กรองแล้วอยากกลับไปดูทุกเคส กด <span class="k">Esc</span> หรือ <span class="k">0</span>
     </div>
     <section data-pane="ov">
-      <div class="grid g3">
-        <div class="panel">
-          <h2>สถานะเคลม</h2>
-          <p class="cap">จำนวนเคส และมูลค่ารวมของแต่ละสถานะ — คลิกเพื่อดูเฉพาะสถานะนั้น</p>
-          <div id="cStatus"></div>
-          <div class="legend" id="lStatus"></div>
-        </div>
-        <div class="panel">
-          <h2>ผู้ขายที่มีเคลมสูงสุด</h2>
-          <p class="cap">แท่ง = จำนวนเคส · ตัวเลขเล็ก = มูลค่ารวม (บาท) — คลิกเพื่อเปิดหน้าผู้ขาย</p>
-          <div id="cVendor"></div>
-        </div>
-        <div class="panel">
-          <h2>สาเหตุ/อาการที่พบบ่อย</h2>
-          <p class="cap">จัดกลุ่มจากข้อความในคอลัมน์ สาเหตุ/อาการ — คลิกเพื่อดูเคสทั้งหมด</p>
-          <div id="cCause"></div>
-        </div>
-      </div>
-      <div class="grid g2">
-        <div class="panel">
-          <h2>เคสค้างที่ต้องตามด่วน</h2>
-          <p class="cap">เรียงตามอายุเคสมากไปน้อย — แสดง 10 อันดับแรก</p>
-          <div id="cWatch"></div>
-        </div>
-        <div class="panel">
-          <h2>SKU ที่ถูกเคลมบ่อย</h2>
-          <p class="cap">แท่ง = จำนวนเคส — คลิกเพื่อเปิดหน้า SKU</p>
-          <div id="cSku"></div>
-        </div>
-      </div>
-      <div class="grid">
-        <div class="panel">
-          <h2>แนวโน้มการเคลมรายเดือน</h2>
-          <p class="cap">นับตามวันที่แจ้งเคลม</p>
-          <div id="cMonth"></div>
-        </div>
-      </div>
+      <div class="cgrid" id="ovGrid"></div>
     </section>
 
     <section data-pane="open" class="hidden">
@@ -432,10 +448,11 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const DAY = 86400000;
+const PREVIEW = new URLSearchParams(location.search).has("preview");
 
-/* ---------------- config ---------------- */
+/* ---------------- ค่าคงที่ ---------------- */
 const CLOSED = ["เคลมแล้ว", "ปิดเคส", "ยกเลิก"];
-const AGE_MID = 21, AGE_BAD = 45;
+let AGE_MID = 21, AGE_BAD = 45;
 const STATUS_STYLE = {
   "แจ้งเคลม":            {c:"#fab219", ic:"●", o:1},
   "รอเคลม":              {c:"#ec835a", ic:"◐", o:2},
@@ -464,12 +481,12 @@ function causeGroup(t){
   return "อื่นๆ";
 }
 
-/* ---------------- helpers ---------------- */
+/* ---------------- ช่วยทั่วไป ---------------- */
 const norm = v => v==null ? null : (String(v).replace(/\s+/g," ").trim() || null);
 const numOf = v => { if(v==null||v==="") return null; const n=Number(String(v).replace(/,/g,"")); return isFinite(n)?n:null; };
 const fmtN = (n,d=0) => n==null ? "—" : n.toLocaleString("th-TH",{minimumFractionDigits:d,maximumFractionDigits:d});
 const fmtB = n => n==null ? "—" : n.toLocaleString("th-TH",{minimumFractionDigits:2,maximumFractionDigits:2});
-const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function toDate(v){
   if(v==null||v==="") return null;
   if(v instanceof Date) return isNaN(v)?null:new Date(Date.UTC(v.getFullYear(),v.getMonth(),v.getDate()));
@@ -484,21 +501,163 @@ function toDate(v){
 const fmtD = d => d ? String(d.getUTCDate()).padStart(2,"0")+"/"+String(d.getUTCMonth()+1).padStart(2,"0")+"/"+d.getUTCFullYear() : "—";
 const today = () => { const n=new Date(); return new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())); };
 const MN = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+/* ค่าในช่อง Excel -> ข้อความที่แสดง (ใช้กับคอลัมน์ที่เพิ่มเองด้วย) */
+function cellText(v){
+  if(v==null || v==="") return null;
+  if(v instanceof Date) return isNaN(v) ? null : fmtD(toDate(v));
+  /* จำนวนเต็มแสดงตามที่พิมพ์ (ไม่ใส่คอมมา เพราะมักเป็นรหัส เช่น เลข LOT) */
+  if(typeof v === "number") return Number.isInteger(v) ? String(v) : v.toLocaleString("th-TH",{maximumFractionDigits:2});
+  if(typeof v === "boolean") return v ? "ใช่" : "ไม่ใช่";
+  const s = String(v).replace(/\r\n?/g,"\n").trim();
+  return s || null;
+}
+
+/* ================= การตั้งค่าหน้าจอ =================
+   มาจากไฟล์ dashboard-settings.json (สร้างที่หน้า update.html) — ถ้าไม่มีไฟล์ใช้ค่าเริ่มต้น
+   ทุกค่าถูกตรวจ/ซ่อมก่อนใช้ ค่าแปลก ๆ จะถูกแทนด้วยค่าเริ่มต้น หน้าจอจึงไม่พังเพราะการตั้งค่า */
+const CORE_FIELDS = [   /* key, ชื่อที่แสดง, ชื่อหัวคอลัมน์ที่รู้จัก */
+  ["caseNo","หมายเลขเคส",["หมายเลขเคส"]],
+  ["date","วันที่แจ้งเคลม",["วันที่แจ้งเคลม"]],
+  ["lot","เลข LOT",["เลข LOT สินค้า","เลข LOT"]],
+  ["coa","เลขที่ COA",["เลขที่ COA"]],
+  ["dept","ฝ่าย",["ฝ่าย"]],
+  ["po","ใบสั่งซื้อ PO",["ใบสั่งซื้อ PO เลขที่","ใบสั่งซื้อ"]],
+  ["sku","SKU",["SKU"]],
+  ["desc","ชื่อสินค้า (Description)",["Description","Desciption","คำอธิบายสินค้า"]],
+  ["qty","จำนวน",["จำนวน"]],
+  ["unit","หน่วย",["หน่วย"]],
+  ["price","ราคา/หน่วย",["ราคา/หน่วย (บาท)","ราคา/หน่วย"]],
+  ["value","มูลค่า",["มูลค่า (บาท) Ex.VAT","มูลค่า (บาท)","มูลค่า"]],
+  ["type","ประเภทเคลม",["ประเภทเคลม"]],
+  ["cause","สาเหตุ/อาการ",["สาเหตุ/อาการ"]],
+  ["vendor","ผู้ขาย",["ช่องทางซื้อ/ผู้ขาย","ผู้ขาย"]],
+  ["owner","ผู้รับผิดชอบ",["ผู้รับผิดชอบ","ผู้รับผิดชอบปัจจุบัน"]],
+  ["status","สถานะเคลม",["สถานะเคลม"]],
+  ["due","กำหนดปิดเคส",["กำหนดปิดเคส"]],
+  ["done","วันที่ซัพฯเสร็จ",["วันที่ ซัพฯเสร็จ","วันที่ซัพฯเสร็จ"]],
+  ["note","หมายเหตุ",["หมายเหตุ"]]
+];
+const CORE_LABEL = Object.fromEntries(CORE_FIELDS.map(f => [f[0], f[1]]));
+const KPI_DEFS = { total:"เคสทั้งหมด", open:"เคสค้าง", overdue:"ค้างเกินกำหนด (สีแดง)",
+  avgAge:"อายุเคสค้างเฉลี่ย", value:"มูลค่าเคลมรวม", incomplete:"เคสข้อมูลไม่ครบ" };
+const CHART_DEFS = {
+  status:{title:"สถานะเคลม", types:["bar","pie"], type:"bar", span:2},
+  vendor:{title:"ผู้ขายที่มีเคลมสูงสุด", types:["bar","pie"], type:"bar", span:2},
+  cause: {title:"สาเหตุ/อาการที่พบบ่อย", types:["bar","pie"], type:"bar", span:2},
+  watch: {title:"เคสค้างที่ต้องตามด่วน", types:["table"], type:"table", span:3},
+  sku:   {title:"SKU ที่ถูกเคลมบ่อย", types:["bar","pie"], type:"pie", span:3},
+  month: {title:"แนวโน้มการเคลมรายเดือน", types:["column"], type:"column", span:6}
+};
+const CUSTOM_TYPES = ["bar","pie"];
+const SPANS = [2,3,4,6];
+const TABLE_COLS = { caseNo:"เคส", date:"วันที่แจ้ง", sku:"SKU / สินค้า", cause:"สาเหตุ", vendor:"ผู้ขาย",
+  owner:"ผู้รับผิดชอบ", qty:"จำนวน", value:"มูลค่า (฿)", status:"สถานะ", age:"อายุ (วัน)",
+  type:"ประเภทเคลม", dept:"ฝ่าย", lot:"เลข LOT", coa:"เลขที่ COA", po:"ใบสั่งซื้อ PO",
+  due:"กำหนดปิดเคส", done:"วันที่ซัพฯเสร็จ", note:"หมายเหตุ" };
+const DEFAULT_SETTINGS = {
+  v:1, title:"ติดตามการเคลมสินค้า", theme:"dark", ageMid:21, ageBad:45, rotateSec:20,
+  kpis: Object.keys(KPI_DEFS).map(id => ({id, show:true})),
+  charts: Object.keys(CHART_DEFS).map(id => ({id, show:true, type:CHART_DEFS[id].type, span:CHART_DEFS[id].span})),
+  tableCols: ["caseNo","date","sku","cause","vendor","owner","qty","value","status","age"],
+  filters: [], colMap: {}
+};
+const isColId = id => typeof id === "string" && /^col:.{1,120}$/s.test(id);
+const colOf = id => id.slice(4);
+const clampInt = (v, lo, hi, d) => { const n = Math.round(Number(v)); return Number.isFinite(n) && n >= lo && n <= hi ? n : d; };
+const shortStr = (v, max) => typeof v === "string" && v.trim() ? v.trim().slice(0, max) : null;
+
+function sanitizeSettings(raw){
+  const r = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+  const D = DEFAULT_SETTINGS;
+  const out = { v:1 };
+  out.title = shortStr(r.title, 80) || D.title;
+  out.theme = r.theme === "light" ? "light" : "dark";
+  out.ageMid = clampInt(r.ageMid, 1, 365, D.ageMid);
+  out.ageBad = clampInt(r.ageBad, 2, 730, D.ageBad);
+  if(out.ageBad <= out.ageMid){ out.ageMid = D.ageMid; out.ageBad = D.ageBad; }
+  out.rotateSec = clampInt(r.rotateSec, 5, 600, D.rotateSec);
+
+  const seen = new Set();
+  out.kpis = (Array.isArray(r.kpis) ? r.kpis : []).filter(k => k && KPI_DEFS[k.id] && !seen.has(k.id) && seen.add(k.id))
+    .map(k => ({id:k.id, show:k.show !== false}));
+  Object.keys(KPI_DEFS).forEach(id => { if(!seen.has(id)) out.kpis.push({id, show:true}); });
+
+  seen.clear(); let custom = 0;
+  out.charts = [];
+  (Array.isArray(r.charts) ? r.charts : []).forEach(c => {
+    if(!c || typeof c.id !== "string" || seen.has(c.id)) return;
+    const def = CHART_DEFS[c.id];
+    if(!def && !(isColId(c.id) && custom < 12)) return;
+    if(!def) custom++;
+    seen.add(c.id);
+    const types = def ? def.types : CUSTOM_TYPES;
+    out.charts.push({ id:c.id, show:c.show !== false,
+      type: types.includes(c.type) ? c.type : (def ? def.type : "bar"),
+      span: SPANS.includes(Number(c.span)) ? Number(c.span) : (def ? def.span : 2),
+      title: shortStr(c.title, 80) || undefined });
+  });
+  Object.keys(CHART_DEFS).forEach(id => { if(!seen.has(id)) out.charts.push({id, show:true, type:CHART_DEFS[id].type, span:CHART_DEFS[id].span}); });
+
+  seen.clear();
+  out.tableCols = (Array.isArray(r.tableCols) ? r.tableCols : [])
+    .filter(id => (TABLE_COLS[id] || isColId(id)) && !seen.has(id) && seen.add(id)).slice(0, 24);
+  if(!out.tableCols.length) out.tableCols = D.tableCols.slice();
+  out.tableCols = ["caseNo"].concat(out.tableCols.filter(id => id !== "caseNo"));
+
+  seen.clear();
+  out.filters = (Array.isArray(r.filters) ? r.filters : [])
+    .map(h => shortStr(h, 120)).filter(h => h && !seen.has(h) && seen.add(h)).slice(0, 3);
+
+  out.colMap = {};
+  if(r.colMap && typeof r.colMap === "object"){
+    CORE_FIELDS.forEach(([k]) => { const h = shortStr(r.colMap[k], 120); if(h) out.colMap[k] = h; });
+  }
+  return out;
+}
+let SET = sanitizeSettings(null);
+
+/* ---------------- ธีม ดำ / ขาว ---------------- */
+const THEME_KEY = "claimTheme", THEME_DEF_KEY = "claimThemeDefault";
+let PREVIEW_THEME = null;
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k, v){ try{ if(v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); }catch(e){} }
+function currentTheme(){
+  if(PREVIEW) return PREVIEW_THEME || SET.theme;
+  const own = lsGet(THEME_KEY);
+  if(own === "light" || own === "dark") return own;
+  return SET.theme || lsGet(THEME_DEF_KEY) || "dark";
+}
+const ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+function applyTheme(){
+  const t = currentTheme();
+  document.documentElement.dataset.theme = t;
+  const b = $("#themeBtn");
+  if(b) b.innerHTML = t === "dark" ? ICON_SUN + "<span>พื้นขาว</span>" : ICON_MOON + "<span>พื้นดำ</span>";
+}
+function toggleTheme(){
+  const next = currentTheme() === "dark" ? "light" : "dark";
+  if(PREVIEW) PREVIEW_THEME = next; else lsSet(THEME_KEY, next);
+  applyTheme();
+}
+applyTheme();
+
+/* ---------------- อ่านไฟล์ Excel ---------------- */
+let STATE = { rows: [], src: "", when: null, warn: [], saved: null, published: null,
+              headers: [], coreMap: {}, extraHeaders: [] };
+let LASTBUF = null;   /* เก็บไฟล์ล่าสุดไว้ อ่านซ้ำได้ทันทีเมื่อการจับคู่คอลัมน์เปลี่ยน */
 
 function colPicker(headers){
   const H = headers.map(h => norm(h)||"");
-  return function(...aliases){
+  return function(aliases){
     for(const a of aliases){ const i = H.findIndex(h => h === a); if(i>=0) return headers[i]; }
     for(const a of aliases){
-      const i = H.findIndex(h => h.replace(/\s/g,"").includes(a.replace(/\s/g,"")));
+      const i = H.findIndex(h => h && h.replace(/\s/g,"").includes(a.replace(/\s/g,"")));
       if(i>=0) return headers[i];
     }
     return null;
   };
 }
-
-/* ---------------- parse workbook ---------------- */
-let STATE = { rows: [], src: "", when: null, warn: [], saved: null, files: [] };
 
 function parseWorkbook(buf, name){
   const wb = XLSX.read(buf, {type:"array", cellDates:true});
@@ -511,35 +670,38 @@ function parseWorkbook(buf, name){
 
   const ws = wb.Sheets[sheetName];
   const aoa = XLSX.utils.sheet_to_json(ws,{header:1,raw:true,cellDates:true,defval:null});
-  const hi = aoa.findIndex(r => r && r.some(c => /หมายเลขเคส/.test(String(c||""))));
+  const mapCase = norm(SET.colMap.caseNo);
+  const hi = aoa.findIndex(r => r && r.some(c => /หมายเลขเคส/.test(String(c||"")) || (mapCase && norm(c) === mapCase)));
   if(hi < 0) throw new Error("ไม่พบหัวตาราง (คอลัมน์ หมายเลขเคส)");
-  const headers = (aoa[hi]||[]).map(h => h==null?"":String(h));
-  const pick = colPicker(headers);
-  const idx = n => headers.findIndex(h => h === n);
 
-  const C = {
-    date:  pick("วันที่แจ้งเคลม"),   caseNo:pick("หมายเลขเคส"),
-    lot:   pick("เลข LOT สินค้า","เลข LOT"), coa: pick("เลขที่ COA"),
-    dept:  pick("ฝ่าย"),            po:    pick("ใบสั่งซื้อ PO เลขที่","ใบสั่งซื้อ"),
-    sku:   pick("SKU"),             desc:  pick("Description","Desciption","คำอธิบายสินค้า"),
-    qty:   pick("จำนวน"),           unit:  pick("หน่วย"),
-    price: pick("ราคา/หน่วย (บาท)","ราคา/หน่วย"),
-    value: pick("มูลค่า (บาท) Ex.VAT","มูลค่า (บาท)","มูลค่า"),
-    type:  pick("ประเภทเคลม"),      cause: pick("สาเหตุ/อาการ"),
-    vendor:pick("ช่องทางซื้อ/ผู้ขาย","ผู้ขาย"), owner: pick("ผู้รับผิดชอบ","ผู้รับผิดชอบปัจจุบัน"),
-    status:pick("สถานะเคลม"),       due:   pick("กำหนดปิดเคส"),
-    done:  pick("วันที่ ซัพฯเสร็จ","วันที่ซัพฯเสร็จ"), note: pick("หมายเหตุ")
-  };
+  /* หัวคอลัมน์ทั้งหมด (รวมคอลัมน์ที่เพิ่มเองใน Excel) — ชื่อซ้ำจะต่อท้ายด้วย (2), (3) */
+  const rawHead = aoa[hi] || [];
+  const width = Math.max(rawHead.length, ...aoa.slice(hi+1, hi+400).map(r => r ? r.length : 0));
+  const headers = [], used = {};
+  for(let i = 0; i < width; i++){
+    let h = norm(rawHead[i]);
+    if(!h){ headers.push(null); continue; }
+    if(used[h]){ used[h]++; h = h + " (" + used[h] + ")"; } else used[h] = 1;
+    headers.push(h);
+  }
+  const named = headers.filter(Boolean);
+  const pick = colPicker(named);
+  const C = {};
+  CORE_FIELDS.forEach(([key, , aliases]) => {
+    const m = SET.colMap[key];
+    C[key] = (m && named.includes(norm(m))) ? norm(m) : pick(aliases);
+  });
+  if(!C.caseNo) throw new Error('ไม่พบคอลัมน์ "หมายเลขเคส"');
+  const idxOf = {}; headers.forEach((h,i) => { if(h) idxOf[h] = i; });
+  const mappedSet = new Set(Object.values(C).filter(Boolean));
 
-  /* SKU master lookup — the dashboard fills Description/unit/price itself so it does
-     not depend on Excel having cached its formula results. */
   const master = {};
   const mName = wb.SheetNames.find(n => /SKU\s*Master/i.test(n));
   if(mName){
     XLSX.utils.sheet_to_json(wb.Sheets[mName],{defval:null}).forEach(r => {
       const k = norm(r["SKU"]); if(!k || master[k]) return;
       master[k] = { desc: norm(r["คำอธิบายสินค้า"]), unit: norm(r["หน่วย"]),
-                    price: numOf(r["ราคา/หน่วย (บาท)"]), vendor: norm(r["ผู้ขายหลัก"]) || norm(r["ผู้ขาย"]) };
+                    price: numOf(r["ราคา/หน่วย (บาท)"]) };
     });
   }
 
@@ -547,7 +709,7 @@ function parseWorkbook(buf, name){
   const rows = [];
   for(let i = hi+1; i < aoa.length; i++){
     const raw = aoa[i]; if(!raw) continue;
-    const get = key => C[key]==null ? null : raw[idx(C[key])];
+    const get = key => C[key]==null ? null : raw[idxOf[C[key]]];
     const caseNo = norm(get("caseNo"));
     if(!caseNo) continue;
 
@@ -563,16 +725,18 @@ function parseWorkbook(buf, name){
     const isOpen = !CLOSED.includes(status);
     const age = done && date ? Math.round((done-date)/DAY)
               : (date && isOpen ? Math.round((t-date)/DAY) : null);
+    const cols = {};
+    headers.forEach((h, j) => { if(h){ const v = cellText(raw[j]); if(v != null) cols[h] = v; } });
 
     const rec = {
-      caseNo, date, done, status, isOpen, age, qty, price, value, sku,
+      caseNo, date, done, status, isOpen, age, qty, price, value, sku, cols,
       desc:   norm(get("desc")) || m.desc || null,
       unit:   norm(get("unit")) || m.unit || null,
       lot:    norm(get("lot")),   coa:   norm(get("coa")),
       dept:   norm(get("dept")),  po:    norm(get("po")),
       type:   norm(get("type")),  cause: norm(get("cause")),
       vendor: norm(get("vendor")),owner: norm(get("owner")),
-      due:    norm(get("due")),   note:  get("note")==null?null:String(get("note")).trim()||null
+      due:    cellText(get("due")), note: get("note")==null?null:String(get("note")).trim()||null
     };
     rec.causeGrp = causeGroup(rec.cause);
     rec.missing = [];
@@ -587,31 +751,39 @@ function parseWorkbook(buf, name){
   }
   if(!rows.length) throw new Error("อ่านไฟล์ได้ แต่ไม่พบข้อมูลเคลมในชีต "+sheetName);
 
-  const keepFiles = STATE.files || [], keepSaved = STATE.saved;
-  STATE = { rows, src:name, when:new Date(), warn:[], saved:keepSaved, files:keepFiles };
+  const keepSaved = STATE.saved, keepPub = STATE.published;
+  STATE = { rows, src:name, when:new Date(), warn:[], saved:keepSaved, published:keepPub,
+            headers:named, coreMap:C, extraHeaders: named.filter(h => !mappedSet.has(h)) };
   if(!mName) STATE.warn.push('ไม่พบชีต "SKU Master" — ชื่อสินค้า/ราคาบางรายการอาจไม่แสดง');
+  ["date","sku","vendor","status","value","qty"].forEach(k => {
+    if(!C[k]) STATE.warn.push(`ไม่พบคอลัมน์ "${CORE_LABEL[k]}" — จับคู่คอลัมน์ได้ที่หน้า update.html`);
+  });
 }
 
-/* ---------------- filters & drill state ---------------- */
-const F = { period:"all", vendor:"all", status:"all" };
+/* ---------------- ตัวกรอง & เจาะลึก ---------------- */
+const F = { period:"all", vendor:"all", status:"all", x:{} };
 const PERIODS = [["all","ทุกช่วงเวลา"],["open","เฉพาะเคสค้าง"],["90","90 วันล่าสุด"],
                  ["180","180 วันล่าสุด"],["365","1 ปีล่าสุด"]];
 const periodLabel = v => (PERIODS.find(p => p[0] === v) || [,v])[1];
+const xFilterCols = () => SET.filters.filter(h => STATE.headers.includes(h));
 function activeFilters(){
   const a = [];
   if(F.period !== "all") a.push({k:"period", label:"ช่วงเวลา: " + periodLabel(F.period)});
   if(F.vendor !== "all") a.push({k:"vendor", label:"ผู้ขาย: " + F.vendor});
   if(F.status !== "all") a.push({k:"status", label:"สถานะ: " + F.status});
+  Object.keys(F.x).forEach(h => { if(F.x[h] !== "all") a.push({k:"x", h, label: h + ": " + F.x[h]}); });
   return a;
 }
 function clearFilters(alsoDrill){
-  F.period = "all"; F.vendor = "all"; F.status = "all";
+  F.period = "all"; F.vendor = "all"; F.status = "all"; F.x = {};
   if(alsoDrill !== false) DRILL = null;
   buildFilters(); render();
 }
-let DRILL = null;                     // {type:'vendor'|'sku'|'cause'|'status'|'owner', value}
+let DRILL = null;                     // {type:'vendor'|'sku'|'cause'|'status'|'owner'|'col:<หัวคอลัมน์>', value}
 const DRILL_KIND = {vendor:"ผู้ขาย", sku:"สินค้า / SKU", cause:"สาเหตุ/อาการ", status:"สถานะเคลม", owner:"ผู้รับผิดชอบ"};
+const drillKindLabel = t => DRILL_KIND[t] || (isColId(t) ? colOf(t) : "");
 const skuKey = r => r.sku ? (r.desc ? r.sku+" · "+r.desc : r.sku) : "ไม่ระบุ";
+const colVal = (r, h) => (r.cols && r.cols[h] != null ? String(r.cols[h]).replace(/\s+/g," ").trim() : "") || "ไม่ระบุ";
 function drillKey(r, type){
   switch(type){
     case "vendor": return r.vendor || "ไม่ระบุ";
@@ -620,13 +792,16 @@ function drillKey(r, type){
     case "status": return r.status;
     case "owner":  return r.owner || "ไม่ระบุ";
   }
+  if(isColId(type)) return colVal(r, colOf(type));
   return "";
 }
 function filtered(){
   const t = today();
+  const xs = Object.keys(F.x).filter(h => F.x[h] !== "all");
   return STATE.rows.filter(r => {
     if(F.vendor !== "all" && (r.vendor||"ไม่ระบุ") !== F.vendor) return false;
     if(F.status !== "all" && r.status !== F.status) return false;
+    for(const h of xs) if(colVal(r, h) !== F.x[h]) return false;
     if(F.period !== "all"){
       if(F.period === "open") return r.isOpen;
       if(!r.date) return false;
@@ -639,8 +814,7 @@ function buildFilters(){
   const vendors = Array.from(new Set(STATE.rows.map(r => r.vendor||"ไม่ระบุ"))).sort((a,b)=>a.localeCompare(b,"th"));
   const statuses = Array.from(new Set(STATE.rows.map(r => r.status))).sort((a,b)=>stStyle(a).o-stStyle(b).o);
 
-  /* ถ้าค่าที่เลือกไว้หายไปจากไฟล์ (ไฟล์ถูกแก้ / ซิงก์มาใหม่) ให้รีเซ็ตเอง
-     ไม่งั้น dropdown จะเด้งกลับเป็น "ทั้งหมด" แต่ตัวกรองยังค้างค่าเดิม -> จอว่าง */
+  /* ถ้าค่าที่เลือกไว้หายไปจากไฟล์ (ไฟล์ถูกแก้ / ซิงก์มาใหม่) ให้รีเซ็ตเอง ไม่งั้นจอว่าง */
   if(F.vendor !== "all" && !vendors.includes(F.vendor)) F.vendor = "all";
   if(F.status !== "all" && !statuses.includes(F.status)) F.status = "all";
   if(F.period !== "all" && !PERIODS.some(pp => pp[0] === F.period)) F.period = "all";
@@ -652,6 +826,20 @@ function buildFilters(){
   $("#fPeriod").classList.toggle("on", F.period !== "all");
   $("#fVendor").classList.toggle("on", F.vendor !== "all");
   $("#fStatus").classList.toggle("on", F.status !== "all");
+
+  /* ตัวกรองเพิ่มเติมจากคอลัมน์ที่เลือกไว้ในหน้าตั้งค่า */
+  const cols = xFilterCols();
+  Object.keys(F.x).forEach(h => { if(!cols.includes(h)) delete F.x[h]; });
+  $("#xFilters").innerHTML = cols.map((h, i) => {
+    const vals = Array.from(new Set(STATE.rows.map(r => colVal(r, h)))).sort((a,b)=>a.localeCompare(b,"th"));
+    if(F.x[h] && F.x[h] !== "all" && !vals.includes(F.x[h])) F.x[h] = "all";
+    const cur = F.x[h] || "all";
+    return `<select data-xf="${i}" aria-label="${esc(h)}" class="${cur!=="all"?"on":""}">` +
+      opt("all", h + ": ทั้งหมด", cur==="all") + vals.slice(0, 300).map(v => opt(v, v, cur===v)).join("") + "</select>";
+  }).join("");
+  $$("#xFilters select").forEach(sel => sel.onchange = e => {
+    F.x[cols[+sel.dataset.xf]] = e.target.value; buildFilters(); render();
+  });
 }
 
 function renderFilterBar(){
@@ -660,8 +848,8 @@ function renderFilterBar(){
   bar.classList.remove("hidden");
   bar.innerHTML =
     '<span class="lead">กำลังกรองอยู่</span>' +
-    a.map(f => `<span class="fchip"><span>${esc(f.label)}</span>
-        <button data-clear="${f.k}" title="เอาตัวกรองนี้ออก">✕</button></span>`).join("") +
+    a.map((f,i) => `<span class="fchip"><span>${esc(f.label)}</span>
+        <button data-clear="${i}" title="เอาตัวกรองนี้ออก">✕</button></span>`).join("") +
     (DRILL ? `<span class="fchip"><span>เจาะลึก: ${esc(DRILL.value)}</span>
         <button data-clear="drill" title="กลับหน้าภาพรวม">✕</button></span>` : "") +
     '<button class="btn" id="clearFilters">ล้างตัวกรองทั้งหมด</button>' +
@@ -669,12 +857,13 @@ function renderFilterBar(){
   $("#clearFilters").onclick = () => clearFilters();
   bar.querySelectorAll("[data-clear]").forEach(btn => btn.onclick = () => {
     const k = btn.dataset.clear;
-    if(k === "drill") DRILL = null; else F[k] = "all";
+    if(k === "drill") DRILL = null;
+    else { const f = a[+k]; if(f.k === "x") F.x[f.h] = "all"; else F[f.k] = "all"; }
     buildFilters(); render();
   });
 }
 
-/* ---------------- chart pieces ---------------- */
+/* ---------------- กราฟแท่ง ---------------- */
 function barChart(el, items, o){
   o = o || {};
   if(!items.length){ el.innerHTML = '<div class="empty">ไม่มีข้อมูลในตัวกรองนี้</div>'; return; }
@@ -700,10 +889,89 @@ function groupBy(rows, keyFn){
   });
   return Array.from(m.values());
 }
+
+/* ---------------- กราฟวงกลม (โดนัท) ----------------
+   - แสดงไม่เกิน 6 ชิ้น: 5 อันดับแรก + "อื่นๆ" (อ่านง่ายกว่าวงกลมหลายสิบชิ้น)
+   - สีผูกกับรายการ ไม่ผูกกับอันดับ: กรองแล้วรายการเดิมยังสีเดิม
+   - ทุกชิ้นมีชื่อ จำนวน และ % ในคำอธิบายข้าง ๆ ไม่ต้องเดาจากสีอย่างเดียว */
+const PIE_MAX = 6, OTHER_KEY = "อื่นๆ (รวม)";
+function slotMapFor(keyFn){
+  const g = groupBy(STATE.rows, keyFn).sort((a,b)=>b.v-a.v || a.k.localeCompare(b.k,"th"));
+  const m = new Map(); g.slice(0, 8).forEach((x, i) => m.set(x.k, i+1));
+  return m;
+}
+function arcPath(cx, cy, r0, r1, a0, a1){
+  const p = (r, a) => [cx + r*Math.sin(a), cy - r*Math.cos(a)];
+  const large = (a1 - a0) > Math.PI ? 1 : 0;
+  const [x0,y0] = p(r1,a0), [x1,y1] = p(r1,a1), [x2,y2] = p(r0,a1), [x3,y3] = p(r0,a0);
+  return `M${x0.toFixed(2)},${y0.toFixed(2)}A${r1},${r1} 0 ${large} 1 ${x1.toFixed(2)},${y1.toFixed(2)}`+
+         `L${x2.toFixed(2)},${y2.toFixed(2)}A${r0},${r0} 0 ${large} 0 ${x3.toFixed(2)},${y3.toFixed(2)}Z`;
+}
+function pieChart(el, items, o){
+  o = o || {};
+  items = items.filter(i => i.v > 0);
+  if(!items.length){ el.innerHTML = '<div class="empty">ไม่มีข้อมูลในตัวกรองนี้</div>'; return; }
+  const total = items.reduce((s,i)=>s+i.v, 0);
+  let shown = items.slice().sort((a,b)=>b.v-a.v || a.k.localeCompare(b.k,"th"));
+  let other = null;
+  if(shown.length > PIE_MAX){
+    const rest = shown.slice(PIE_MAX-1);
+    shown = shown.slice(0, PIE_MAX-1);
+    other = {k:OTHER_KEY, v:rest.reduce((s,i)=>s+i.v,0), value:rest.reduce((s,i)=>s+i.value,0),
+             open:rest.reduce((s,i)=>s+i.open,0), n:rest.length, other:true};
+  }
+  if(!o.keepOrder){
+    /* สีตามรายการ: รายการที่ติดอันดับในทั้งไฟล์ได้สีประจำ รายการอื่นใช้สีที่ว่าง */
+    const slots = o.slots || new Map();
+    const used = new Set(shown.map(i => slots.get(i.k)).filter(Boolean));
+    shown.forEach(i => {
+      let s = slots.get(i.k);
+      if(!s){ s = [1,2,3,4,5,6,7,8].find(n => !used.has(n)) || 8; used.add(s); }
+      i.slot = s; i.color = i.color || `var(--cat-${s})`;
+    });
+    shown.sort((a,b)=>a.slot-b.slot);
+  }
+  if(other){ other.color = "var(--cat-other)"; shown.push(other); }
+  /* เปอร์เซ็นต์แบบปัดเศษให้รวมได้ 100 พอดี (largest remainder) */
+  const raw = shown.map(i => i.v / total * 100), base = raw.map(Math.floor);
+  let left = 100 - base.reduce((a,b)=>a+b, 0);
+  raw.map((r, i) => [r - base[i], i]).sort((a,b)=>b[0]-a[0]).forEach(([, i]) => { if(left > 0){ base[i]++; left--; } });
+  shown.forEach((it, i) => it.pct = base[i]);
+
+  const cx = 100, cy = 100, r1 = 94, r0 = 60;
+  let a = 0, paths = "";
+  const tipOf = it => it.other
+    ? `<b>อื่นๆ ${fmtN(it.n)} รายการ</b><br><span class="k">จำนวนรวม</span> ${fmtN(it.v)} เคส (${(it.v/total*100).toFixed(1)}%)<br><span class="k">ดูรายการทั้งหมดได้ในแท็บ ทุกเคส</span>`
+    : (o.tip ? o.tip(it, total) : `<b>${esc(it.k)}</b><br><span class="k">จำนวน</span> ${fmtN(it.v)} เคส (${(it.v/total*100).toFixed(1)}%)`);
+  const drillAttr = it => (o.drill && !it.other) ? ` data-drill-type="${esc(o.drill)}" data-drill-value="${esc(it.k)}"` : "";
+  shown.forEach(it => {
+    const sweep = it.v / total * Math.PI * 2;
+    const cls = "slice" + (o.drill && !it.other ? " clickable" : "");
+    const style = `fill:${it.color};stroke:var(--surface-1);stroke-width:2;stroke-linejoin:round`;
+    if(shown.length === 1){
+      paths += `<circle class="${cls}" cx="${cx}" cy="${cy}" r="${(r0+r1)/2}" style="fill:none;stroke:${it.color};stroke-width:${r1-r0}"${drillAttr(it)} data-tip="${esc(tipOf(it))}"></circle>`;
+    } else {
+      paths += `<path class="${cls}" style="${style}" d="${arcPath(cx,cy,r0,r1,a,a+sweep)}"${drillAttr(it)} data-tip="${esc(tipOf(it))}"></path>`;
+    }
+    a += sweep;
+  });
+  const center = o.centerLabel || "เคส";
+  el.innerHTML = `<div class="pie">
+    <svg viewBox="0 0 200 200" role="img" aria-label="${esc(o.aria || "กราฟวงกลม")}">${paths}
+      <text class="ctr" x="100" y="100" text-anchor="middle" font-size="30">${fmtN(total)}</text>
+      <text class="ctr2" x="100" y="122" text-anchor="middle">${esc(center)}</text></svg>
+    <div class="plegend">${shown.map(it => `<div class="pl${o.drill && !it.other ? " clickable" : ""}"${drillAttr(it)} data-tip="${esc(tipOf(it))}">
+      <span class="sw" style="background:${it.color}"></span>
+      <span class="nm" title="${esc(it.other ? "อื่นๆ " + it.n + " รายการ" : it.k)}">${esc(it.other ? `อื่นๆ (${fmtN(it.n)} รายการ)` : it.k)}</span>
+      <span class="ct num">${fmtN(it.v)}</span>
+      <span class="pc num">${it.pct}%</span></div>`).join("")}</div>
+  </div>`;
+}
+
 const ageCls = a => a==null ? "ok" : a>=AGE_BAD ? "bad" : a>=AGE_MID ? "mid" : "ok";
 const chip = s => { const st = stStyle(s);
-  return `<span class="chip" style="color:${st.c};background:${st.c}1f;border-color:${st.c}55">
-    <span class="ic">${st.ic}</span>${esc(s)}</span>`; };
+  return `<span class="chip" style="background:${st.c}1f;border-color:${st.c}66">
+    <span class="ic" style="color:${st.c}">${st.ic}</span>${esc(s)}</span>`; };
 
 function monthChart(el, rows){
   const mo = new Map();
@@ -715,7 +983,8 @@ function monthChart(el, rows){
   if(!keys.length){ el.innerHTML = '<div class="empty">ไม่มีข้อมูลวันที่</div>'; return; }
   const all = []; let [y,m] = keys[0].split("-").map(Number);
   const [ly,lm] = keys[keys.length-1].split("-").map(Number);
-  while(y < ly || (y===ly && m<=lm)){
+  let guard = 0;
+  while((y < ly || (y===ly && m<=lm)) && guard++ < 240){
     const k = y+"-"+String(m).padStart(2,"0");
     all.push(mo.get(k) || {k, v:0, value:0});
     m++; if(m>12){m=1;y++;}
@@ -723,14 +992,14 @@ function monthChart(el, rows){
   const mx = Math.max(...all.map(a=>a.v), 1);
   el.innerHTML = '<div class="months' + (all.length < 6 ? " few" : "") + '">' + all.map(a => {
     const [yy,mm] = a.k.split("-").map(Number);
-    return `<div class="mo" data-tip="<b>${MN[mm-1]} ${yy}</b><br><span class='k'>จำนวน</span> ${fmtN(a.v)} เคส<br><span class='k'>มูลค่า</span> ${fmtB(a.value)} บาท">
+    return `<div class="mo" data-tip="<b>${MN[mm-1]} ${yy+543}</b><br><span class='k'>จำนวน</span> ${fmtN(a.v)} เคส<br><span class='k'>มูลค่า</span> ${fmtB(a.value)} บาท">
       <span class="mv num">${a.v||""}</span>
       <span class="mbar" style="height:${(a.v/mx)*100}%;${a.v?"":"opacity:.25"}"></span>
       <span class="ml">${MN[mm-1]}</span></div>`;
   }).join("") + "</div>";
 }
 
-/* ---------------- tables ---------------- */
+/* ---------------- ตาราง ---------------- */
 function miniTable(rs){
   if(!rs.length) return '<div class="empty">ไม่มีเคสค้าง 🎉</div>';
   return `<div class="tblwrap"><table><thead><tr>
@@ -743,24 +1012,40 @@ function miniTable(rs){
     <td class="r"><span class="age ${ageCls(r.age)}">${r.age==null?"—":r.age+" วัน"}</span></td>
     </tr>`).join("") + "</tbody></table></div>";
 }
+const MISS = '<span class="miss">—</span>';
+const TCELL = {
+  caseNo: r => `<td class="case">${esc(r.caseNo)}</td>`,
+  date:   r => `<td class="r">${fmtD(r.date)}</td>`,
+  sku:    r => `<td class="desc">${r.sku?`<b>${esc(r.sku)}</b><br>`:""}${esc(r.desc||"—")}</td>`,
+  cause:  r => `<td class="cause">${esc(r.cause||"—")}</td>`,
+  vendor: r => `<td class="desc">${r.vendor?esc(r.vendor):'<span class="miss">ไม่ระบุ</span>'}</td>`,
+  owner:  r => `<td>${r.owner?esc(r.owner):'<span class="miss">ไม่ระบุ</span>'}</td>`,
+  qty:    r => `<td class="r">${r.qty==null?MISS:fmtN(r.qty,r.qty%1?2:0)+" "+esc(r.unit||"")}</td>`,
+  value:  r => `<td class="r">${r.value==null?MISS:fmtB(r.value)}</td>`,
+  status: r => `<td>${chip(r.status)}</td>`,
+  age:    r => `<td class="r"><span class="age ${ageCls(r.age)}">${r.age==null?"—":r.age}</span></td>`,
+  type:   r => `<td>${esc(r.type||"—")}</td>`,
+  dept:   r => `<td>${esc(r.dept||"—")}</td>`,
+  lot:    r => `<td>${esc(r.lot||"—")}</td>`,
+  coa:    r => `<td>${esc(r.coa||"—")}</td>`,
+  po:     r => `<td>${esc(r.po||"—")}</td>`,
+  due:    r => `<td class="r">${esc(r.due||"—")}</td>`,
+  done:   r => `<td class="r">${r.done?fmtD(r.done):"—"}</td>`,
+  note:   r => `<td class="cause">${r.note?esc(r.note.length>140?r.note.slice(0,140)+"…":r.note):"—"}</td>`
+};
+const RIGHT_COLS = new Set(["date","qty","value","age","due","done"]);
 function fullTable(rs, maxH){
   if(!rs.length) return '<div class="empty">ไม่มีข้อมูลในตัวกรองนี้</div>';
-  return `<div class="tblwrap" style="max-height:${maxH||"calc(100vh - 300px)"}"><table><thead><tr>
-    <th>เคส</th><th>วันที่แจ้ง</th><th>SKU / สินค้า</th><th>สาเหตุ</th><th>ผู้ขาย</th>
-    <th>ผู้รับผิดชอบ</th><th style="text-align:right">จำนวน</th><th style="text-align:right">มูลค่า (฿)</th>
-    <th>สถานะ</th><th style="text-align:right">อายุ</th>
-    </tr></thead><tbody>` + rs.map(r => `<tr data-case="${esc(r.caseNo)}">
-    <td class="case">${esc(r.caseNo)}</td>
-    <td class="r">${fmtD(r.date)}</td>
-    <td class="desc">${r.sku?`<b>${esc(r.sku)}</b><br>`:""}${esc(r.desc||"—")}</td>
-    <td class="cause">${esc(r.cause||"—")}</td>
-    <td class="desc">${r.vendor?esc(r.vendor):'<span class="miss">ไม่ระบุ</span>'}</td>
-    <td>${r.owner?esc(r.owner):'<span class="miss">ไม่ระบุ</span>'}</td>
-    <td class="r">${r.qty==null?'<span class="miss">—</span>':fmtN(r.qty,r.qty%1?2:0)+" "+esc(r.unit||"")}</td>
-    <td class="r">${r.value==null?'<span class="miss">—</span>':fmtB(r.value)}</td>
-    <td>${chip(r.status)}</td>
-    <td class="r"><span class="age ${ageCls(r.age)}">${r.age==null?"—":r.age}</span></td>
-    </tr>`).join("") + "</tbody></table></div>";
+  const cols = SET.tableCols;
+  const head = cols.map(id => {
+    const label = TABLE_COLS[id] || (isColId(id) ? colOf(id) : id);
+    return `<th${RIGHT_COLS.has(id)?' style="text-align:right"':""}>${esc(label)}</th>`;
+  }).join("");
+  const cell = (r, id) => TCELL[id] ? TCELL[id](r)
+    : `<td class="desc">${r.cols && r.cols[colOf(id)] != null ? esc(r.cols[colOf(id)]) : "—"}</td>`;
+  return `<div class="tblwrap" style="max-height:${maxH||"calc(100vh - 300px)"}"><table><thead><tr>${head}</tr></thead><tbody>` +
+    rs.map(r => `<tr data-case="${esc(r.caseNo)}">${cols.map(id => cell(r, id)).join("")}</tr>`).join("") +
+    "</tbody></table></div>";
 }
 function missTable(rs){
   if(!rs.length) return '<div class="empty">ข้อมูลครบทุกเคสแล้ว 🎉</div>';
@@ -775,7 +1060,7 @@ function missTable(rs){
     </tr>`).join("") + "</tbody></table></div>";
 }
 
-/* ---------------- KPI ---------------- */
+/* ---------------- การ์ดตัวเลข ---------------- */
 function kpiHtml(rows, scopeLabel){
   const open = rows.filter(r => r.isOpen);
   const overdue = open.filter(r => (r.age??0) >= AGE_BAD);
@@ -788,18 +1073,28 @@ function kpiHtml(rows, scopeLabel){
       <div class="lbl">${esc(lbl)}</div>
       <div class="val num">${val}${unit?`<span class="unit">${esc(unit)}</span>`:""}</div>
       <div class="hint">${hint||""}</div></div>`;
-  return k("เคสทั้งหมด", fmtN(rows.length), "เคส", scopeLabel || `จากทั้งไฟล์ ${fmtN(STATE.rows.length)} เคส`, "var(--series-1)") +
-    k("เคสค้าง", fmtN(open.length), "เคส", `คิดเป็น ${rows.length?Math.round(open.length/rows.length*100):0}% ของกลุ่มนี้`, "var(--warning)") +
-    k("ค้างเกิน "+AGE_BAD+" วัน", fmtN(overdue.length), "เคส",
+  const make = {
+    total: () => k("เคสทั้งหมด", fmtN(rows.length), "เคส", scopeLabel || `จากทั้งไฟล์ ${fmtN(STATE.rows.length)} เคส`, "var(--series-1)"),
+    open: () => k("เคสค้าง", fmtN(open.length), "เคส", `คิดเป็น ${rows.length?Math.round(open.length/rows.length*100):0}% ของกลุ่มนี้`, "var(--warning)"),
+    overdue: () => k("ค้างเกิน "+AGE_BAD+" วัน", fmtN(overdue.length), "เคส",
       overdue.length ? `เก่าสุด ${fmtN(Math.max(...overdue.map(r=>r.age||0)))} วัน` : "ไม่มีเคสค้างนาน",
-      overdue.length ? "var(--critical)" : "var(--good)") +
-    k("อายุเคสค้างเฉลี่ย", avgAge==null?"—":fmtN(avgAge), "วัน", `เตือนที่ ${AGE_MID} วัน · ด่วนที่ ${AGE_BAD} วัน`, "var(--serious)") +
-    k("มูลค่าเคลมรวม", fmtB(totalValue), "บาท", noValue?`ยังไม่ระบุมูลค่า ${fmtN(noValue)} เคส`:"ระบุมูลค่าครบทุกเคส", "var(--series-3)") +
-    k("เคสข้อมูลไม่ครบ", fmtN(incomplete.length), "เคส", incomplete.length?"คลิกแท็บ ข้อมูลไม่ครบ เพื่อดู":"ข้อมูลครบทุกเคส",
-      incomplete.length ? "var(--warning)" : "var(--good)");
+      overdue.length ? "var(--critical)" : "var(--good)"),
+    avgAge: () => k("อายุเคสค้างเฉลี่ย", avgAge==null?"—":fmtN(avgAge), "วัน", `เตือนที่ ${AGE_MID} วัน · ด่วนที่ ${AGE_BAD} วัน`, "var(--serious)"),
+    value: () => k("มูลค่าเคลมรวม", fmtB(totalValue), "บาท", noValue?`ยังไม่ระบุมูลค่า ${fmtN(noValue)} เคส`:"ระบุมูลค่าครบทุกเคส", "var(--series-3)"),
+    incomplete: () => k("เคสข้อมูลไม่ครบ", fmtN(incomplete.length), "เคส", incomplete.length?"คลิกแท็บ ข้อมูลไม่ครบ เพื่อดู":"ข้อมูลครบทุกเคส",
+      incomplete.length ? "var(--warning)" : "var(--good)")
+  };
+  return SET.kpis.filter(x => x.show && make[x.id]).map(x => make[x.id]()).join("");
+}
+function setKpis(html){
+  const el = $("#kpis");
+  const n = SET.kpis.filter(x => x.show).length;
+  el.style.setProperty("--kc", Math.max(1, Math.min(6, n)));
+  el.innerHTML = html;
+  el.classList.toggle("hidden", !n);
 }
 
-/* ---------------- data freshness ---------------- */
+/* ---------------- ความสดของข้อมูล ---------------- */
 function renderFresh(){
   const w = $("#freshWrap"), t = $("#freshTxt");
   if(!STATE.saved){ t.textContent = "ไฟล์: " + (STATE.src||"—"); w.className = "live"; return; }
@@ -813,9 +1108,9 @@ function renderFresh(){
     {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}) + " (" + ago + ")";
   w.className = "live" + (mins >= 10080 ? " old" : mins >= 2880 ? " stale" : "");
 }
-function renderFileSel(){}
 
-/* ---------------- render ---------------- */
+/* ---------------- วาดหน้าจอ ---------------- */
+let SETWARN = "";
 function render(){
   try{
     $("#fatal").classList.add("hidden");
@@ -831,19 +1126,18 @@ function render(){
 }
 
 function renderInner(){
-  let rows = filtered();
-  $("#foot").textContent = `ไฟล์ต้นทาง: ${STATE.src}` + (STATE.published ? ` · ขึ้นเว็บเมื่อ ${STATE.published.toLocaleString("th-TH")}` : "") + ` · หน้านี้โหลดล่าสุด ${STATE.when.toLocaleString("th-TH")}`
-    + (STATE.warn.length ? " · " + STATE.warn.join(" · ") : "");
+  const rows = filtered();
+  const warn = STATE.warn.concat(SETWARN ? [SETWARN] : []);
+  $("#foot").textContent = `ไฟล์ต้นทาง: ${STATE.src}` + (STATE.published ? ` · ขึ้นเว็บเมื่อ ${STATE.published.toLocaleString("th-TH")}` : "") + (STATE.when ? ` · หน้านี้โหลดล่าสุด ${STATE.when.toLocaleString("th-TH")}` : "")
+    + (warn.length ? " · " + warn.join(" · ") : "");
   $("#srcName").textContent = STATE.src;
-  renderFresh(); renderFileSel();
+  renderFresh();
 
-  /* ถ้ากำลังเจาะลึกอยู่ แล้วรายการนั้นไม่เหลือเคสในตัวกรองปัจจุบัน ให้ถอยกลับเอง */
   if(DRILL && !rows.some(r => drillKey(r, DRILL.type) === DRILL.value)) DRILL = null;
-
   renderFilterBar();
 
   if(!rows.length){
-    $("#kpis").innerHTML = kpiHtml(rows, `จากทั้งไฟล์ ${fmtN(STATE.rows.length)} เคส`);
+    setKpis(kpiHtml(rows, `จากทั้งไฟล์ ${fmtN(STATE.rows.length)} เคส`));
     const a = activeFilters();
     $("#noDataWhy").innerHTML = a.length
       ? "ตอนนี้กรองด้วย " + a.map(f => "<b>" + esc(f.label) + "</b>").join(" และ ") +
@@ -858,8 +1152,59 @@ function renderInner(){
     return;
   }
   $("#noData").classList.add("hidden");
-
   if(DRILL) renderDrill(rows); else renderMain(rows);
+}
+
+const CAP = {
+  bar:  "แท่ง = จำนวนเคส — คลิกเพื่อเจาะลึก",
+  pie:  "สัดส่วนจำนวนเคส — คลิกชิ้นกราฟหรือชื่อเพื่อเจาะลึก"
+};
+function chartTitle(c){ return c.title || (CHART_DEFS[c.id] ? CHART_DEFS[c.id].title : "เคลมแยกตาม " + colOf(c.id)); }
+
+function drawChart(c, rows, el, capEl){
+  const tipBase = (g, total) => `<b>${esc(g.k)}</b><br><span class="k">จำนวน</span> ${fmtN(g.v)} เคส` +
+    (total ? ` (${(g.v/total*100).toFixed(1)}%)` : "") +
+    `<br><span class="k">ค้างอยู่</span> ${fmtN(g.open)} เคส<br><span class="k">มูลค่า</span> ${fmtB(g.value)} บาท<br><span class="k">คลิกเพื่อเจาะลึก</span>`;
+  const cat = (items, drill, slots, opts) => {
+    if(c.type === "pie"){ capEl.textContent = CAP.pie; pieChart(el, items, Object.assign({drill, slots, tip:tipBase, aria:chartTitle(c)}, opts||{})); }
+    else { capEl.textContent = (opts && opts.barCap) || CAP.bar;
+      barChart(el, items.sort((a,b)=>b.v-a.v||b.value-a.value).slice(0, 8), Object.assign({drill, tip:g => tipBase(g)}, opts||{})); }
+  };
+  switch(c.id){
+    case "status": {
+      const g = groupBy(rows, r=>r.status).sort((a,b)=>stStyle(a.k).o-stStyle(b.k).o);
+      g.forEach(x => x.color = stStyle(x.k).c);
+      if(c.type === "pie"){ capEl.textContent = "สัดส่วนเคสตามสถานะ — คลิกเพื่อดูเฉพาะสถานะนั้น";
+        pieChart(el, g, {drill:"status", keepOrder:true, tip:tipBase, aria:"สถานะเคลม"}); }
+      else { capEl.textContent = "จำนวนเคส และมูลค่ารวมของแต่ละสถานะ — คลิกเพื่อดูเฉพาะสถานะนั้น";
+        barChart(el, g, { drill:"status", subFmt: x => x.value ? fmtB(x.value)+" ฿" : "", tip:x => tipBase(x) });
+        el.insertAdjacentHTML("beforeend", '<div class="legend">' + g.map(x =>
+          `<span class="lg"><span class="swatch" style="background:${x.color}"></span>${esc(x.k)} ${fmtN(x.v)}</span>`).join("") + "</div>"); }
+      return;
+    }
+    case "vendor": return cat(groupBy(rows, r=>r.vendor), "vendor", slotMapFor(r=>r.vendor||"ไม่ระบุ"),
+      {subFmt: g => g.value ? fmtB(g.value) : "—", barCap:"แท่ง = จำนวนเคส · ตัวเลขเล็ก = มูลค่ารวม (บาท) — คลิกเพื่อเปิดหน้าผู้ขาย"});
+    case "cause":  return cat(groupBy(rows, r=>r.causeGrp), "cause", slotMapFor(r=>r.causeGrp),
+      {barCap:"จัดกลุ่มจากข้อความในคอลัมน์ สาเหตุ/อาการ — คลิกเพื่อดูเคสทั้งหมด"});
+    case "sku":    return cat(groupBy(rows, skuKey), "sku", slotMapFor(skuKey),
+      {subFmt: g => g.value ? fmtB(g.value) : "—", barCap:"แท่ง = จำนวนเคส — คลิกเพื่อเปิดหน้า SKU"});
+    case "watch": {
+      capEl.textContent = "เรียงตามอายุเคสมากไปน้อย — แสดง 10 อันดับแรก";
+      el.innerHTML = miniTable(rows.filter(r=>r.isOpen).sort((a,b) => (b.age??-1)-(a.age??-1)).slice(0,10));
+      return;
+    }
+    case "month": capEl.textContent = "นับตามวันที่แจ้งเคลม"; monthChart(el, rows); return;
+  }
+  if(isColId(c.id)){
+    const h = colOf(c.id);
+    if(!STATE.headers.includes(h)){
+      capEl.textContent = "";
+      el.innerHTML = `<div class="cwarn">ไม่พบคอลัมน์ “${esc(h)}” ในไฟล์ Excel แล้ว (อาจถูกลบหรือเปลี่ยนชื่อ) — แก้ได้ที่หน้า update.html</div>`;
+      return;
+    }
+    cat(groupBy(rows, r => colVal(r, h)), c.id, slotMapFor(r => colVal(r, h)),
+        {barCap:`นับจำนวนเคสตามคอลัมน์ “${h}” ใน Excel — คลิกเพื่อเจาะลึก`});
+  }
 }
 
 function renderMain(rows){
@@ -870,33 +1215,20 @@ function renderMain(rows){
 
   const open = rows.filter(r => r.isOpen);
   const incomplete = rows.filter(r => r.missing.length);
-  $("#kpis").innerHTML = kpiHtml(rows);
+  setKpis(kpiHtml(rows));
 
-  const byStatus = groupBy(rows, r=>r.status).sort((a,b)=>stStyle(a.k).o-stStyle(b.k).o);
-  byStatus.forEach(g => g.color = stStyle(g.k).c);
-  barChart($("#cStatus"), byStatus, { drill:"status",
-    valFmt: g => fmtN(g.v),
-    subFmt: g => g.value ? fmtB(g.value)+" ฿" : "",
-    tip: g => `<b>${esc(g.k)}</b><br><span class="k">จำนวน</span> ${fmtN(g.v)} เคส<br><span class="k">มูลค่า</span> ${fmtB(g.value)} บาท<br><span class="k">คลิกเพื่อดูรายละเอียด</span>` });
-  $("#lStatus").innerHTML = byStatus.map(g =>
-    `<span class="lg"><span class="swatch" style="background:${g.color}"></span>${esc(g.k)} ${fmtN(g.v)}</span>`).join("");
-
-  barChart($("#cVendor"), groupBy(rows, r=>r.vendor).sort((a,b)=>b.v-a.v||b.value-a.value).slice(0,8), {
-    drill:"vendor", subFmt: g => g.value ? fmtB(g.value) : "—",
-    tip: g => `<b>${esc(g.k)}</b><br><span class="k">จำนวน</span> ${fmtN(g.v)} เคส (ค้าง ${fmtN(g.open)})<br><span class="k">มูลค่า</span> ${fmtB(g.value)} บาท<br><span class="k">คลิกเพื่อเปิดหน้าผู้ขาย</span>` });
-
-  barChart($("#cCause"), groupBy(rows, r=>r.causeGrp).sort((a,b)=>b.v-a.v).slice(0,8), {
-    drill:"cause",
-    tip: g => `<b>${esc(g.k)}</b><br><span class="k">จำนวน</span> ${fmtN(g.v)} เคส<br><span class="k">ค้างอยู่</span> ${fmtN(g.open)} เคส<br><span class="k">คลิกเพื่อดูรายละเอียด</span>` });
-
-  barChart($("#cSku"), groupBy(rows, skuKey).sort((a,b)=>b.v-a.v).slice(0,8), {
-    drill:"sku", subFmt: g => g.value ? fmtB(g.value) : "—",
-    tip: g => `<b>${esc(g.k)}</b><br><span class="k">จำนวน</span> ${fmtN(g.v)} เคส<br><span class="k">มูลค่า</span> ${fmtB(g.value)} บาท<br><span class="k">คลิกเพื่อเปิดหน้า SKU</span>` });
-
-  monthChart($("#cMonth"), rows);
+  const vis = SET.charts.filter(c => c.show);
+  const grid = $("#ovGrid");
+  grid.innerHTML = vis.length ? vis.map((c, i) => `<div class="panel span-${c.span}" data-ci="${i}">
+      <h2>${esc(chartTitle(c))}</h2><p class="cap"></p><div class="cbody"></div></div>`).join("")
+    : '<div class="panel span-6"><div class="empty">ยังไม่ได้เลือกกราฟให้แสดง — เปิดได้ที่หน้า update.html</div></div>';
+  vis.forEach((c, i) => {
+    const p = grid.querySelector(`[data-ci="${i}"]`);
+    try{ drawChart(c, rows, p.querySelector(".cbody"), p.querySelector(".cap")); }
+    catch(e){ console.error(e); p.querySelector(".cbody").innerHTML = '<div class="cwarn">กราฟนี้แสดงไม่ได้ — ' + esc(e.message||e) + "</div>"; }
+  });
 
   const openSorted = open.slice().sort((a,b) => (b.age??-1)-(a.age??-1));
-  $("#cWatch").innerHTML  = miniTable(openSorted.slice(0,10));
   $("#tblOpen").innerHTML = fullTable(openSorted);
   $("#tblAll").innerHTML  = fullTable(rows.slice().sort((a,b)=>(b.date?.getTime()||0)-(a.date?.getTime()||0)));
   $("#tblMiss").innerHTML = missTable(incomplete.slice().sort((a,b)=>b.missing.length-a.missing.length));
@@ -912,14 +1244,13 @@ function renderDrill(rows){
   $("#tabsWrap").classList.add("hidden");
   $("#drillHead").classList.remove("hidden");
   $("#drillPane").classList.remove("hidden");
-  $("#drillKind").textContent = DRILL_KIND[DRILL.type] || "";
+  $("#drillKind").textContent = drillKindLabel(DRILL.type);
   $("#drillTitle").textContent = DRILL.value;
 
-  $("#kpis").innerHTML = kpiHtml(subset, `จากทั้งหมด ${fmtN(rows.length)} เคสที่กรองอยู่`);
+  setKpis(kpiHtml(subset, `จากทั้งหมด ${fmtN(rows.length)} เคสที่กรองอยู่`));
 
-  /* panel A varies by drill type so it always adds information */
   let aTitle, aCap, aItems, aOpts;
-  if(DRILL.type === "vendor" || DRILL.type === "cause" || DRILL.type === "status" || DRILL.type === "owner"){
+  if(DRILL.type !== "sku"){
     aTitle = "สินค้า / SKU"; aCap = "SKU ที่พบปัญหาในกลุ่มนี้ — คลิกเพื่อเจาะต่อ";
     aItems = groupBy(subset, skuKey).sort((a,b)=>b.v-a.v).slice(0,8);
     aOpts = { drill:"sku", subFmt: g => g.value ? fmtB(g.value) : "—" };
@@ -950,10 +1281,11 @@ function renderDrill(rows){
     "none");
 }
 
-/* ---------------- case drawer ---------------- */
+/* ---------------- หน้ารายละเอียดเคส ---------------- */
 function openCase(caseNo){
   const r = STATE.rows.find(x => x.caseNo === caseNo); if(!r) return;
   const row = (k,v) => v==null||v==="" ? "" : `<dt>${esc(k)}</dt><dd>${v}</dd>`;
+  const extra = STATE.extraHeaders.filter(h => r.cols[h] != null);
   $("#drawer").innerHTML = `
     <button class="btn close" id="drawerClose">ปิด ✕</button>
     <h3>${esc(r.caseNo)}</h3>
@@ -979,6 +1311,8 @@ function openCase(caseNo){
       ${row("กำหนดปิดเคส", esc(r.due))}
       ${row("วันที่ซัพฯเสร็จ", r.done?fmtD(r.done):'<span class="miss">ยังไม่ระบุ</span>')}
     </dl>
+    ${extra.length ? `<div class="notebox"><b>ข้อมูลอื่นจาก Excel</b><dl class="dl" style="margin-top:4px">${
+      extra.map(h => row(h, esc(r.cols[h]))).join("")}</dl></div>` : ""}
     ${r.note ? `<div class="notebox"><b>หมายเหตุ</b>${esc(r.note)}</div>` : ""}
     ${r.missing.length ? `<div class="notebox"><b>ช่องที่ยังว่างในไฟล์ Excel</b>${r.missing.map(m=>`<span class="tagmiss">${esc(m)}</span>`).join("")}</div>` : ""}
   `;
@@ -992,12 +1326,13 @@ function closeCase(){
 }
 $("#scrim").onclick = closeCase;
 
-/* ---------------- global click routing ---------------- */
+/* ---------------- การคลิก ---------------- */
 document.addEventListener("click", e => {
   const bar = e.target.closest("[data-drill-type]");
   if(bar){
     stopRotate();
     DRILL = { type: bar.dataset.drillType, value: bar.dataset.drillValue };
+    tip.style.opacity = 0;
     closeCase(); render(); window.scrollTo({top:0, behavior:"smooth"});
     return;
   }
@@ -1011,21 +1346,21 @@ $("#fatalReset").onclick = () => { try{ clearFilters(); }catch(e){ location.relo
 /* ---------------- tooltip ---------------- */
 const tip = $("#tip");
 document.addEventListener("mouseover", e => {
-  const el = e.target.closest("[data-tip]");
+  const el = e.target.closest && e.target.closest("[data-tip]");
   if(!el || !el.dataset.tip){ tip.style.opacity = 0; return; }
   tip.innerHTML = el.dataset.tip; tip.style.opacity = 1;
 });
 document.addEventListener("mousemove", e => {
-  if(tip.style.opacity == "0") return;
+  if(tip.style.opacity == "0" || tip.style.opacity === "") return;
   const pad = 16, w = tip.offsetWidth, h = tip.offsetHeight;
   let x = e.clientX + pad, y = e.clientY + pad;
   if(x + w > innerWidth - 8) x = e.clientX - w - pad;
   if(y + h > innerHeight - 8) y = e.clientY - h - pad;
   tip.style.left = x + "px"; tip.style.top = y + "px";
 });
-document.addEventListener("mouseout", e => { if(e.target.closest("[data-tip]")) tip.style.opacity = 0; });
+document.addEventListener("mouseout", e => { if(e.target.closest && e.target.closest("[data-tip]")) tip.style.opacity = 0; });
 
-/* ---------------- tabs / controls ---------------- */
+/* ---------------- แท็บ / ปุ่ม ---------------- */
 function showTab(name){
   DRILL = null;
   $$(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === name)));
@@ -1034,26 +1369,49 @@ function showTab(name){
 }
 $$(".tab").forEach(t => t.onclick = () => { stopRotate(); showTab(t.dataset.tab); });
 ["fPeriod","fVendor","fStatus"].forEach(id => {
-  $("#"+id).onchange = e => { F[id.slice(1).toLowerCase()] = e.target.value; render(); };
+  $("#"+id).onchange = e => { F[id.slice(1).toLowerCase()] = e.target.value; buildFilters(); render(); };
 });
 $("#full").onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+$("#themeBtn").onclick = toggleTheme;
 
 let rotTimer = null;
 const ORDER = ["ov","open","miss"];
 function stopRotate(){ if(rotTimer){ clearInterval(rotTimer); rotTimer=null; $("#rotate").setAttribute("aria-pressed","false"); } }
-$("#rotate").onclick = () => {
-  if(rotTimer){ stopRotate(); return; }
+function startRotate(){
+  stopRotate();
   $("#rotate").setAttribute("aria-pressed","true");
   let i = 0;
-  rotTimer = setInterval(() => { i = (i+1) % ORDER.length; showTab(ORDER[i]); }, 20000);
-};
+  rotTimer = setInterval(() => { i = (i+1) % ORDER.length; showTab(ORDER[i]); }, SET.rotateSec * 1000);
+}
+$("#rotate").onclick = () => { if(rotTimer) stopRotate(); else startRotate(); };
+function syncRotateTitle(){ $("#rotate").title = `สลับแท็บอัตโนมัติทุก ${SET.rotateSec} วินาที`; }
 
-/* ---------------- ปลดล็อกด้วยรหัสผ่าน แล้วอ่านข้อมูลจาก data.json ----------------
-   data.json v2 = ไฟล์ Excel ทั้งไฟล์ที่เข้ารหัสแล้ว (ตัวอัปเดตอัตโนมัติบนเครื่องเจ้าของไฟล์เป็นคนส่งขึ้นมา)
-   data.json v1 = รูปแบบเก่า (แถวข้อมูลที่เข้ารหัสแล้ว) ยังเปิดได้                                   */
+/* ---------------- ใช้การตั้งค่า ---------------- */
+function applySettings(raw){
+  const prevMap = JSON.stringify(SET.colMap);
+  const prevRot = SET.rotateSec;
+  SET = sanitizeSettings(raw);
+  AGE_MID = SET.ageMid; AGE_BAD = SET.ageBad;
+  if(!PREVIEW) lsSet(THEME_DEF_KEY, SET.theme);
+  applyTheme();
+  $("#appTitle").textContent = SET.title;
+  document.title = SET.title;
+  syncRotateTitle();
+  if(rotTimer && prevRot !== SET.rotateSec) startRotate();
+  /* การจับคู่คอลัมน์เปลี่ยน -> อ่านไฟล์ Excel ชุดเดิมใหม่ */
+  if(LASTBUF && JSON.stringify(SET.colMap) !== prevMap){
+    try{ parseWorkbook(LASTBUF.buf, LASTBUF.name); }
+    catch(e){ console.warn(e); SETWARN = "อ่านไฟล์ตามการจับคู่คอลัมน์ใหม่ไม่ได้: " + (e.message||e); }
+  }
+}
+syncRotateTitle();
+
+/* ---------------- ปลดล็อกด้วยรหัสผ่าน แล้วอ่าน data.json + dashboard-settings.json ----------------
+   data.json v2 = ไฟล์ Excel ทั้งไฟล์ที่เข้ารหัสแล้ว · v1 = รูปแบบเก่า (ยังเปิดได้)
+   dashboard-settings.json = การตั้งค่าหน้าจอที่เข้ารหัสด้วยรหัสเดียวกัน (ไม่มีไฟล์ = ค่าเริ่มต้น) */
 const KEY_STORE = "claimPass";
 const POLL_MS = 60000;
-let PASS = null, BOX = null, SIG = null, BUSY = false, POLL = null, BADFILE = "";
+let PASS = null, BOX = null, SIG = null, BUSY = false, POLL = null, BADFILE = "", SETSIG = null;
 
 class WrongPass extends Error {}
 const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -1061,11 +1419,12 @@ const boxSig = b => b ? String(b.mac || b.ct || "") : "";
 const utf8 = s => new TextEncoder().encode(s);
 const hhmm = d => d.toLocaleTimeString("th-TH", {hour:"2-digit", minute:"2-digit"});
 
-function remembered(){ try{ return localStorage.getItem(KEY_STORE); }catch(e){ return null; } }
-function remember(p){ try{ localStorage.setItem(KEY_STORE, p); }catch(e){} }
-function forget(){ try{ localStorage.removeItem(KEY_STORE); }catch(e){} }
+function remembered(){ return lsGet(KEY_STORE); }
+function remember(p){ lsSet(KEY_STORE, p); }
+function forget(){ lsSet(KEY_STORE, null); }
 
 async function openBox(box, pass){
+  if(!box || typeof box !== "object") throw new Error("ไฟล์ข้อมูลไม่ถูกต้อง");
   const iter = Math.min(Math.max(Number(box.iter) || 200000, 10000), 2000000);
   const km = await crypto.subtle.importKey("raw", utf8(pass), "PBKDF2", false, ["deriveBits", "deriveKey"]);
   if(box.v === 2){
@@ -1099,6 +1458,7 @@ function reviveRows(raw){
     o.age = o.done && o.date ? Math.round((o.done - o.date)/DAY)
           : (o.date && o.isOpen ? Math.round((t - o.date)/DAY) : null);
     o.causeGrp = causeGroup(o.cause);
+    o.cols = {};
     o.missing = [];
     if(!o.date)         o.missing.push("วันที่แจ้งเคลม");
     if(o.qty == null)   o.missing.push("จำนวน");
@@ -1114,23 +1474,54 @@ function reviveRows(raw){
 /* แปลงข้อมูลที่ถอดรหัสแล้วเข้าหน้าจอ — ถ้าไฟล์ Excel อ่านไม่ได้จะโยน error และข้อมูลเดิมบนจอยังอยู่ */
 function applyOpened(o, box){
   if(o.kind === "xlsx"){
-    parseWorkbook(o.buf, box.name || "ไฟล์เคลม.xlsx");
+    const name = box.name || "ไฟล์เคลม.xlsx";
+    parseWorkbook(o.buf, name);
+    LASTBUF = {buf:o.buf, name};
     STATE.saved = box.savedAt ? new Date(box.savedAt) : null;
     STATE.published = box.publishedAt ? new Date(box.publishedAt) : null;
   }else{
     const d = o.data;
-    STATE = { rows: reviveRows(d.rows || []), src: d.src || "—",
-              when: new Date(), warn: [], files: [],
+    LASTBUF = null;
+    STATE = { rows: reviveRows(d.rows || []), src: d.src || "—", when: new Date(), warn: [],
               saved: d.savedAt ? new Date(d.savedAt) : null,
-              published: d.updatedAt ? new Date(d.updatedAt) : null };
+              published: d.updatedAt ? new Date(d.updatedAt) : null,
+              headers: [], coreMap: {}, extraHeaders: [] };
   }
   buildFilters(); render();
 }
 
-async function fetchBox(){
-  const r = await fetch("data.json?t=" + Date.now(), {cache:"no-store"});
-  if(!r.ok) throw new Error("โหลดไฟล์ข้อมูลไม่ได้ (HTTP " + r.status + ")");
+async function fetchJson(name){
+  const r = await fetch(name + "?t=" + Date.now(), {cache:"no-store"});
+  if(r.status === 404) return null;
+  if(!r.ok) throw new Error("โหลดไฟล์ " + name + " ไม่ได้ (HTTP " + r.status + ")");
   return r.json();
+}
+async function fetchBox(){
+  const b = await fetchJson("data.json");
+  if(!b) throw new Error("ไม่พบไฟล์ data.json (HTTP 404)");
+  return b;
+}
+/* โหลดการตั้งค่า — คืน true ถ้ามีการเปลี่ยน · ปัญหาใด ๆ ของไฟล์ตั้งค่าไม่ทำให้หน้าจอหลักหยุด */
+async function loadSettings(pass){
+  let box;
+  try{ box = await fetchJson("dashboard-settings.json"); }
+  catch(e){ console.warn(e); return false; }
+  const sig = box ? boxSig(box) : "none";
+  if(sig === SETSIG) return false;
+  SETSIG = sig;
+  let raw = null; SETWARN = "";
+  if(box){
+    try{
+      const o = await openBox(box, pass);
+      raw = JSON.parse(new TextDecoder().decode(o.buf));
+    }catch(e){
+      console.warn("settings", e);
+      SETWARN = e instanceof WrongPass ? "ไฟล์ตั้งค่าหน้าจอใช้รหัสเก่า — ใช้ค่าเริ่มต้นไปก่อน"
+                                       : "อ่านไฟล์ตั้งค่าหน้าจอไม่ได้ — ใช้ค่าเริ่มต้นไปก่อน";
+    }
+  }
+  applySettings(raw);
+  return true;
 }
 
 function setLive(state, text){
@@ -1165,20 +1556,23 @@ function showApp(){
 
 async function unlock(pass, keep){
   const o = await openBox(BOX, pass);        /* WrongPass ถ้ารหัสผิด */
+  SETSIG = null;
+  await loadSettings(pass);                   /* ตั้งค่าก่อน แล้วค่อยวาด */
   applyOpened(o, BOX);                        /* error ถ้าไฟล์ Excel อ่านไม่ได้ */
   PASS = pass; SIG = boxSig(BOX); BADFILE = "";
   if(keep) remember(pass); else forget();
   showApp(); liveOk();
 }
 
-/* เช็คว่ามีข้อมูลใหม่ไหม — ถ้าไม่มีอะไรเปลี่ยนจะไม่ถอดรหัสซ้ำ */
+/* เช็คข้อมูลใหม่และการตั้งค่าใหม่ — ถ้าไม่มีอะไรเปลี่ยนจะไม่ถอดรหัสซ้ำ */
 async function check(manual){
-  if(BUSY || !PASS) return;
+  if(BUSY || !PASS || PREVIEW) return;
   BUSY = true;
   const btn = $("#refresh");
   if(manual){ btn.disabled = true; btn.textContent = "กำลังโหลด …"; }
   try{
     const box = await fetchBox();
+    let dataChanged = false;
     if(boxSig(box) !== SIG){
       let o;
       try{ o = await openBox(box, PASS); }
@@ -1190,12 +1584,16 @@ async function check(manual){
         }
         throw e;
       }
+      const setChanged = await loadSettings(PASS);
       SIG = boxSig(box);
-      try{ applyOpened(o, box); BOX = box; BADFILE = ""; flash(); }
+      try{ applyOpened(o, box); BOX = box; BADFILE = ""; dataChanged = true; flash(); }
       catch(e){
         console.warn(e);
         BADFILE = "ไฟล์ Excel ล่าสุดอ่านไม่ได้ (" + (e.message || e) + ") — ยังแสดงข้อมูลชุดก่อน";
+        if(setChanged){ buildFilters(); render(); }
       }
+    } else if(await loadSettings(PASS)){
+      buildFilters(); render(); flash();
     }
     liveOk();
   }catch(err){
@@ -1228,33 +1626,63 @@ $("#refresh").onclick = () => check(true);
 document.addEventListener("visibilitychange", () => { if(!document.hidden) check(false); });
 window.addEventListener("online", () => check(false));
 
-/* เปิดหน้ามา: ลองปลดล็อกด้วยรหัสที่จำไว้ */
-(async () => {
-  if(location.protocol === "file:"){
-    gerr("หน้านี้ต้องเปิดผ่าน<b>ลิงก์เว็บ</b> (https://…github.io/…)<br>" +
-         "การดับเบิลคลิกไฟล์ index.html ในเครื่องหรือใน OneDrive จะโหลดข้อมูลไม่ได้");
-    $("#gbtn").disabled = true;
-    return;
-  }
-  try{ BOX = await fetchBox(); }
-  catch(err){
-    gerr("เปิดไฟล์ข้อมูลไม่ได้ — " + esc(err.message) +
-         "<br>ตรวจว่ามีไฟล์ <b>data.json</b> อยู่ที่เดียวกับหน้านี้ แล้วลองใหม่");
-    return;
-  }
-  const saved = remembered();
-  if(saved){
-    try{ await unlock(saved, true); return; }
-    catch(e){
-      if(e instanceof WrongPass){ forget(); gerr("รหัสที่จำไว้ใช้ไม่ได้แล้ว (อาจถูกเปลี่ยน) กรุณาใส่รหัสใหม่", true); }
-      else gerr(esc(e.message || e));
+/* ---------------- โหมดพรีวิว (หน้า update.html ฝังหน้านี้ไว้ดูผลการตั้งค่า) ---------------- */
+if(PREVIEW){
+  $("#gate").classList.add("hidden");
+  ["#lock","#refresh","#liveWrap"].forEach(s => $(s).classList.add("hidden"));
+  window.CM = {
+    version: 4,
+    defaults: () => JSON.parse(JSON.stringify(DEFAULT_SETTINGS)),
+    sanitize: raw => sanitizeSettings(JSON.parse(JSON.stringify(raw || {}))),
+    meta: () => ({ CORE_FIELDS, KPI_DEFS, CHART_DEFS, TABLE_COLS, SPANS, CUSTOM_TYPES }),
+    openBox: (box, pass) => openBox(box, pass).then(o => o, e => { throw (e instanceof WrongPass ? new Error("WRONG_PASS") : e); }),
+    load(buf, name, meta){
+      meta = meta || {};
+      parseWorkbook(buf, name);
+      LASTBUF = {buf, name};
+      STATE.saved = meta.savedAt ? new Date(meta.savedAt) : null;
+      STATE.published = meta.publishedAt ? new Date(meta.publishedAt) : null;
+      $("#app").classList.remove("hidden");
+      buildFilters(); render();
+      return this.info();
+    },
+    setSettings(raw){ applySettings(raw); if(STATE.rows.length){ buildFilters(); render(); } return JSON.parse(JSON.stringify(SET)); },
+    setTheme(t){ PREVIEW_THEME = t === "light" ? "light" : "dark"; applyTheme(); },
+    info(){
+      const sample = {};
+      STATE.headers.forEach(h => { sample[h] = STATE.rows.map(r => r.cols[h]).filter(v => v != null).slice(0, 3); });
+      return { headers: STATE.headers.slice(), coreMap: Object.assign({}, STATE.coreMap),
+               extra: STATE.extraHeaders.slice(), rows: STATE.rows.length, warn: STATE.warn.slice(), sample };
     }
-  }
-  $("#gpass").focus();
-})();
+  };
+} else {
+  /* เปิดหน้ามา: ลองปลดล็อกด้วยรหัสที่จำไว้ */
+  (async () => {
+    if(location.protocol === "file:"){
+      gerr("หน้านี้ต้องเปิดผ่าน<b>ลิงก์เว็บ</b> (https://…github.io/…)<br>" +
+           "การดับเบิลคลิกไฟล์ index.html ในเครื่องหรือใน OneDrive จะโหลดข้อมูลไม่ได้");
+      $("#gbtn").disabled = true;
+      return;
+    }
+    try{ BOX = await fetchBox(); }
+    catch(err){
+      gerr("เปิดไฟล์ข้อมูลไม่ได้ — " + esc(err.message) +
+           "<br>ตรวจว่ามีไฟล์ <b>data.json</b> อยู่ที่เดียวกับหน้านี้ แล้วลองใหม่");
+      return;
+    }
+    const saved = remembered();
+    if(saved){
+      try{ await unlock(saved, true); return; }
+      catch(e){
+        if(e instanceof WrongPass){ forget(); gerr("รหัสที่จำไว้ใช้ไม่ได้แล้ว (อาจถูกเปลี่ยน) กรุณาใส่รหัสใหม่", true); }
+        else gerr(esc(e.message || e));
+      }
+    }
+    $("#gpass").focus();
+  })();
+}
 
-
-/* keyboard */
+/* ---------------- คีย์ลัด ---------------- */
 document.addEventListener("keydown", e => {
   if(e.target.matches("input,select,textarea")) return;
   const k = e.key.toLowerCase();
@@ -1266,9 +1694,11 @@ document.addEventListener("keydown", e => {
   }
   if(k === "0"){ clearFilters(); return; }
   if(k==="f") $("#full").click();
+  else if(k==="t") toggleTheme();
   else if(k==="r") check(true);
-  else if("1234".includes(k)) { stopRotate(); showTab(["ov","open","miss","all"][+k-1]); }
+  else if("1234".includes(k) && k.length === 1) { stopRotate(); showTab(["ov","open","miss","all"][+k-1]); }
 });
+
 </script>
 </body>
 </html>
